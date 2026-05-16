@@ -238,7 +238,6 @@ body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--text);
 
 <div class="toast" id="toast"></div>
 
-<!-- TOP BAR -->
 <div class="topbar">
   <div class="topbar-icon">🚗</div>
   <div class="topbar-text">
@@ -249,7 +248,6 @@ body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--text);
 
 <div class="main">
 
-  <!-- INSTALL BANNER -->
   <div class="install-banner" id="installBanner">
     <h3>📲 ثبّت التطبيق على هاتفك</h3>
     <p>يمكنك استخدام التطبيق في أي وقت حتى بدون إنترنت بعد التثبيت</p>
@@ -270,7 +268,6 @@ body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--text);
     <button class="ibtn" id="installBtn" onclick="handleInstall()">⚡ تثبيت التطبيق الآن</button>
   </div>
 
-  <!-- 1. SKID DISTANCE -->
   <div class="sec">
     <div class="sec-icon ic-blue">📏</div>
     <div class="sec-text">
@@ -286,7 +283,6 @@ body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--text);
     </div>
   </div>
 
-  <!-- 2. ROAD TYPE -->
   <div class="sec">
     <div class="sec-icon ic-teal">🛣️</div>
     <div class="sec-text">
@@ -339,7 +335,6 @@ body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--text);
     </div>
   </div>
 
-  <!-- 3. TIRES -->
   <div class="sec">
     <div class="sec-icon ic-gold">🔧</div>
     <div class="sec-text">
@@ -364,7 +359,6 @@ body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--text);
     </div>
   </div>
 
-  <!-- 4. GRADE -->
   <div class="sec">
     <div class="sec-icon ic-green">📐</div>
     <div class="sec-text">
@@ -373,17 +367,14 @@ body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--text);
     </div>
   </div>
   <div class="card">
-    <!-- Direction toggle -->
     <div class="grade-row">
       <button class="grade-btn active" onclick="setGrade('flat',this)">⏤ مستوٍ</button>
       <button class="grade-btn" onclick="setGrade('up',this)">⬆ صاعد</button>
       <button class="grade-btn" onclick="setGrade('down',this)">⬇ هابط</button>
     </div>
 
-    <!-- Slope options — hidden when flat -->
     <div id="gradeField" style="display:none;">
 
-      <!-- Visual estimation options -->
       <span class="grade-est-label">اختر وصف الانحدار تقريباً:</span>
       <div class="grade-est-grid" id="gestGrid">
         <div class="gest" onclick="selectGest(this, 2)">
@@ -412,7 +403,6 @@ body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--text);
         </div>
       </div>
 
-      <!-- OR: manual entry -->
       <div class="or-divider"><span>أو أدخل النسبة يدوياً إن عرفتها</span></div>
       <span class="inp-label">نسبة الانحدار بالمئة (اختياري)</span>
       <div class="inp-row">
@@ -424,7 +414,6 @@ body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--text);
 
   <button class="calc-btn" onclick="calculate()">⚡ احسب السرعة الآن</button>
 
-  <!-- ─── RESULTS ─── -->
   <div class="results" id="results">
 
     <div class="sec" style="margin-top:24px;">
@@ -441,7 +430,6 @@ body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--text);
         <div class="gauge-ticks"><span>0</span><span>60</span><span>120</span><span>180+</span></div>
       </div>
       <div class="class-badge" id="classBadge"></div>
-      <!-- Speed range considering grade uncertainty -->
       <div class="speed-range" id="speedRange"></div>
     </div>
 
@@ -492,19 +480,14 @@ body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--text);
       </div>
     </div>
 
-  </div><!-- /results -->
-
-  <!-- COPYRIGHT FOOTER -->
-  <div class="copyright">
+  </div><div class="copyright">
     <div class="copy-logo">⚖️</div>
     <div class="copy-name">إسماعيل منهو</div>
     <div class="copy-title">خبير تحليل الحوادث المرورية</div>
     <div class="copy-line">© جميع الحقوق محفوظة — Ismail Manhou 2025</div>
   </div>
 
-</div><!-- /main -->
-
-<script>
+</div><script>
 let selectedMu = null;
 let selectedTires = 4;
 let gradeMode = 'flat';
@@ -582,98 +565,214 @@ function animVal(id, from, to, dur, dec=0){
   })(performance.now());
 }
 
-function calcSpeed(muEff, d){
-  return Math.sqrt(2 * muEff * 9.81 * d);
-}
-
+// دالة الحساب المطورة والمصلحة بالكامل
 function calculate(){
   const d = parseFloat(document.getElementById('skidDist').value);
-  if(!d || d <= 0){ showToast('⚠ أدخل طول أثر الفرامل بالمتر'); return; }
-  if(selectedMu === null){ showToast('⚠ اختر نوع وحالة الطريق'); return; }
+
+  if(!d || d <= 0){
+    showToast('⚠ أدخل طول أثر الفرامل بالمتر');
+    return;
+  }
+
+  if(selectedMu === null){
+    showToast('⚠ اختر نوع وحالة الطريق');
+    return;
+  }
 
   const g = 9.81;
-  const ratio = selectedTires / 4;
 
-  // Get grade value
-  let gradeAdj = 0;
+  // =========================
+  // الانحدار
+  // =========================
   let gradePercent = 0;
   let gradeIsEstimate = false;
 
   if(gradeMode !== 'flat'){
     const manualVal = parseFloat(document.getElementById('gradeVal').value);
+
     if(selectedGestVal !== null){
       gradePercent = selectedGestVal;
       gradeIsEstimate = true;
-    } else if(!isNaN(manualVal) && manualVal >= 0){
+    }
+    else if(!isNaN(manualVal) && manualVal >= 0){
       gradePercent = manualVal;
       gradeIsEstimate = false;
     }
-    gradeAdj = (gradeMode === 'up' ? 1 : -1) * (gradePercent / 100);
   }
 
-  const muEff = (selectedMu / ratio) + gradeAdj;
-  const vMs = calcSpeed(muEff, d);
+  // تحويل % إلى قيمة عشرية
+  const gradeDecimal = gradePercent / 100;
+
+  // =========================
+  // تعديل الاحتكاك حسب الانحدار
+  // =========================
+  let muEff = selectedMu;
+
+  // الطريق الصاعد
+  if(gradeMode === 'up'){
+    muEff = selectedMu + gradeDecimal;
+  }
+  // الطريق الهابط
+  else if(gradeMode === 'down'){
+    muEff = selectedMu - gradeDecimal;
+  }
+
+  // حماية من القيم غير المنطقية
+  if(muEff <= 0){
+    showToast('⚠ قيمة الانحدار غير منطقية');
+    return;
+  }
+
+  // =========================
+  // تأثير عدد الإطارات
+  // =========================
+  const tireFactor = {
+    1: 0.55,
+    2: 0.75,
+    3: 0.90,
+    4: 1
+  };
+
+  muEff *= tireFactor[selectedTires] || 1;
+
+  // =========================
+  // حساب السرعة
+  // =========================
+  const vMs = Math.sqrt(2 * muEff * g * d);
   const vKmh = vMs * 3.6;
   const vMph = vMs * 2.237;
   const tBrake = vMs / (muEff * g);
 
-  // If estimate was used, calc range ±1 grade level
+  // =========================
+  // مجال السرعة التقديري
+  // =========================
   let rangeText = '';
+
   if(gradeIsEstimate && gradeMode !== 'flat'){
-    const lowAdj = (gradeMode === 'up' ? 1 : -1) * (Math.max(0, gradePercent - 2) / 100);
-    const highAdj = (gradeMode === 'up' ? 1 : -1) * ((gradePercent + 2) / 100);
-    const muLow = (selectedMu / ratio) + lowAdj;
-    const muHigh = (selectedMu / ratio) + highAdj;
-    const vLow = calcSpeed(muLow, d) * 3.6;
-    const vHigh = calcSpeed(muHigh, d) * 3.6;
+    const lowG = Math.max(0, (gradePercent - 2) / 100);
+    const highG = (gradePercent + 2) / 100;
+
+    let muLow;
+    let muHigh;
+
+    // صاعد
+    if(gradeMode === 'up'){
+      muLow = selectedMu + lowG;
+      muHigh = selectedMu + highG;
+    }
+    // هابط
+    else{
+      muLow = selectedMu - highG;
+      muHigh = selectedMu - lowG;
+    }
+
+    muLow *= tireFactor[selectedTires] || 1;
+    muHigh *= tireFactor[selectedTires] || 1;
+
+    const vLow = Math.sqrt(2 * muLow * g * d) * 3.6;
+    const vHigh = Math.sqrt(2 * muHigh * g * d) * 3.6;
+
     const r1 = Math.min(vLow, vHigh).toFixed(0);
     const r2 = Math.max(vLow, vHigh).toFixed(0);
-    rangeText = `نطاق مع هامش الانحدار التقديري: <strong>${r1} — ${r2} كم/س</strong>`;
+
+    rangeText = `نطاق السرعة المتوقع: <strong>${r1} — ${r2} كم/س</strong>`;
   }
 
-  // Show results
+  // =========================
+  // عرض النتائج
+  // =========================
   const res = document.getElementById('results');
   res.classList.add('show');
-  setTimeout(() => res.scrollIntoView({behavior:'smooth', block:'start'}), 100);
 
-  animVal('resKmh', 0, vKmh, 900, 1);
-  animVal('resMs',  0, vMs,  900, 1);
-  animVal('resMph', 0, vMph, 900, 0);
-  animVal('resBrake', 0, tBrake, 900, 1);
-  animVal('resMu', 0, muEff, 900, 2);
+  setTimeout(() => {
+    res.scrollIntoView({
+      behavior:'smooth',
+      block:'start'
+    });
+  }, 100);
+
+  animVal('resKmh',0,vKmh,900,1);
+  animVal('resMs',0,vMs,900,1);
+  animVal('resMph',0,vMph,900,0);
+  animVal('resBrake',0,tBrake,900,1);
+  animVal('resMu',0,muEff,900,2);
 
   setTimeout(() => {
     document.getElementById('gaugeFill').style.width = Math.min((vKmh / 180) * 100, 100) + '%';
   }, 200);
 
-  // Speed range display
+  // =========================
+  // مجال السرعة
+  // =========================
   const rangeEl = document.getElementById('speedRange');
+
   if(rangeText){
     rangeEl.innerHTML = rangeText;
     rangeEl.style.display = 'block';
-  } else {
+  }else{
     rangeEl.style.display = 'none';
   }
 
-  // Classification
+  // =========================
+  // تصنيف السرعة
+  // =========================
   const badge = document.getElementById('classBadge');
   let icon, label, bg, bdr;
-  if(vKmh < 40)       { icon='🟢'; label='سرعة منخفضة — أقل من 40 كم/س';    bg='rgba(76,175,80,0.15)';  bdr='rgba(76,175,80,0.4)'; }
-  else if(vKmh < 70)  { icon='🟡'; label='سرعة معتدلة — داخل المدن';         bg='rgba(255,235,59,0.1)';  bdr='rgba(255,235,59,0.4)'; }
-  else if(vKmh < 100) { icon='🟠'; label='سرعة عالية — طرق رئيسية';          bg='rgba(255,152,0,0.12)';  bdr='rgba(255,152,0,0.4)'; }
-  else if(vKmh < 140) { icon='🔴'; label='سرعة مرتفعة جداً — طرق سريعة';    bg='rgba(244,67,54,0.12)';  bdr='rgba(244,67,54,0.4)'; }
-  else                 { icon='⛔'; label='سرعة خطرة للغاية';                 bg='rgba(183,28,28,0.18)';  bdr='rgba(244,67,54,0.6)'; }
-  badge.style.cssText = `background:${bg};border:1px solid ${bdr};color:#e8eef5;`;
+
+  if(vKmh < 40){
+    icon='🟢';
+    label='سرعة منخفضة';
+    bg='rgba(76,175,80,0.15)';
+    bdr='rgba(76,175,80,0.4)';
+  }
+  else if(vKmh < 70){
+    icon='🟡';
+    label='سرعة معتدلة';
+    bg='rgba(255,235,59,0.1)';
+    bdr='rgba(255,235,59,0.4)';
+  }
+  else if(vKmh < 100){
+    icon='🟠';
+    label='سرعة عالية';
+    bg='rgba(255,152,0,0.12)';
+    bdr='rgba(255,152,0,0.4)';
+  }
+  else if(vKmh < 140){
+    icon='🔴';
+    label='سرعة مرتفعة جداً';
+    bg='rgba(244,67,54,0.12)';
+    bdr='rgba(244,67,54,0.4)';
+  }
+  else{
+    icon='⛔';
+    label='سرعة خطيرة للغاية';
+    bg='rgba(183,28,28,0.18)';
+    bdr='rgba(244,67,54,0.6)';
+  }
+
+  badge.style.cssText = `background:${bg}; border:1px solid ${bdr}; color:#e8eef5;`;
   badge.innerHTML = `${icon} ${label}`;
 
-  // Formula steps
-  const gradeNote = gradeIsEstimate ? ` (تقدير ${gradePercent}%)` : (gradePercent > 0 ? ` (${gradePercent}%)` : '');
+  // =========================
+  // شرح المعادلة
+  // =========================
+  let gradeTxt = '';
+
+  if(gradeMode === 'up'){
+    gradeTxt = ` + ${gradeDecimal.toFixed(2)}`;
+  }
+  else if(gradeMode === 'down'){
+    gradeTxt = ` - ${gradeDecimal.toFixed(2)}`;
+  }
+
   document.getElementById('fstep2').innerHTML =
-    `<strong>المعامل الفعلي للاحتكاك:</strong> μ = ${selectedMu} ÷ ${ratio}${gradeAdj !== 0 ? (gradeAdj > 0 ? ' + ' : ' − ') + Math.abs(gradeAdj).toFixed(3) + gradeNote : ''} = <strong>${muEff.toFixed(3)}</strong>`;
+  `<strong>الاحتكاك المعدل:</strong> μ = ${selectedMu}${gradeTxt} × ${tireFactor[selectedTires]} = <strong>${muEff.toFixed(3)}</strong>`;
+
   document.getElementById('fstep3').innerHTML =
-    `<strong>تطبيق المعادلة:</strong> v = √(2 × ${muEff.toFixed(3)} × 9.81 × ${d}) = <strong>${vKmh.toFixed(1)} كم/س</strong>`;
+  `<strong>الحساب النهائي:</strong> v = √(2 × ${muEff.toFixed(3)} × 9.81 × ${d}) = <strong>${vKmh.toFixed(1)} كم/س</strong>`;
+
   document.getElementById('formulaHL').textContent =
-    `v = √(2×${muEff.toFixed(3)}×9.81×${d}) = ${vMs.toFixed(2)} م/ث = ${vKmh.toFixed(1)} كم/س`;
+  `v = √(2×${muEff.toFixed(3)}×9.81×${d}) = ${vMs.toFixed(2)} م/ث = ${vKmh.toFixed(1)} كم/س`;
 }
 
 // Service Worker
