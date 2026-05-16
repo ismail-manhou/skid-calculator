@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d1b2a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="محلل الحوادث">
+<meta name="mobile-web-app-capable" content="yes">
+<title>محلل حوادث المرور</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script>
+const manifest = {
+  name: "محلل حوادث المرور",
+  short_name: "محلل الحوادث",
+  description: "تحديد سرعة المركبة من آثار الفرامل — إسماعيل منهو",
+  start_url: ".",
+  display: "standalone",
+  background_color: "#0d1b2a",
+  theme_color: "#0d1b2a",
+  orientation: "portrait",
+  icons: [
+    { src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='24' fill='%230d1b2a'/%3E%3Ctext x='96' y='130' font-size='100' text-anchor='middle'%3E%F0%9F%9A%97%3C/text%3E%3C/svg%3E", sizes: "192x192", type: "image/svg+xml" }
+  ]
+};
+const blob = new Blob([JSON.stringify(manifest)], {type:'application/manifest+json'});
+const lnk = document.createElement('link');
+lnk.rel = 'manifest'; lnk.href = URL.createObjectURL(blob);
+document.head.appendChild(lnk);
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --navy:#0d1b2a;--navy2:#122034;--card:#1a2e42;--card2:#1f3650;
+  --border:rgba(255,255,255,0.08);--blue:#2196f3;--blue2:#64b5f6;
+  --teal:#00bcd4;--gold:#ffc107;--green:#4caf50;--orange:#ff9800;--red:#f44336;
+  --text:#e8eef5;--muted:#7a95b0;--shadow:0 4px 24px rgba(0,0,0,0.4);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--text);
+  min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* TOP BAR */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(13,27,42,0.96);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);padding:12px 18px;
+  display:flex;align-items:center;gap:12px;}
+.topbar-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--blue),var(--teal));
+  border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.topbar-text h1{font-size:15px;font-weight:800;line-height:1.2;}
+.topbar-text p{font-size:11px;color:var(--muted);}
+
+/* MAIN */
+.main{padding:16px 14px 40px;max-width:520px;margin:0 auto;}
+
+/* SECTION LABEL */
+.sec{display:flex;align-items:flex-start;gap:10px;margin:22px 0 10px;}
+.sec-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;
+  justify-content:center;font-size:16px;flex-shrink:0;margin-top:1px;}
+.ic-blue{background:rgba(33,150,243,0.15);}
+.ic-teal{background:rgba(0,188,212,0.15);}
+.ic-gold{background:rgba(255,193,7,0.15);}
+.ic-green{background:rgba(76,175,80,0.15);}
+.sec-text h2{font-size:14px;font-weight:800;margin-bottom:1px;}
+.sec-text p{font-size:11px;color:var(--muted);line-height:1.4;}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:18px;margin-bottom:10px;box-shadow:var(--shadow);}
+
+/* INPUT */
+.inp-label{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;display:block;}
+.inp-row{display:flex;align-items:center;background:var(--card2);
+  border:1.5px solid var(--border);border-radius:12px;overflow:hidden;
+  transition:border-color .2s,box-shadow .2s;}
+.inp-row:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(33,150,243,0.12);}
+.inp-row input{flex:1;background:transparent;border:none;outline:none;color:var(--text);
+  font-family:'Cairo',sans-serif;font-size:24px;font-weight:700;padding:13px 14px;
+  width:100%;text-align:right;}
+.inp-row input::placeholder{color:rgba(255,255,255,0.18);font-size:15px;}
+.inp-unit{padding:0 14px 0 10px;font-size:12px;font-weight:700;color:var(--blue2);
+  white-space:nowrap;border-right:1px solid var(--border);}
+
+/* PILLS */
+.pill-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.pill{padding:12px 10px;background:var(--card2);border:1.5px solid var(--border);
+  border-radius:12px;color:var(--muted);font-family:'Cairo',sans-serif;font-size:12px;
+  font-weight:600;cursor:pointer;transition:all .2s;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  -webkit-user-select:none;user-select:none;}
+.pill .p-icon{font-size:20px;}
+.pill .p-name{font-size:12px;font-weight:700;color:var(--text);}
+.pill .p-mu{font-size:10px;color:var(--muted);}
+.pill.active{background:rgba(33,150,243,0.1);border-color:var(--blue);}
+.pill.active .p-mu{color:var(--blue2);}
+
+/* TIRE */
+.tire-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.tire-btn{aspect-ratio:1;background:var(--card2);border:1.5px solid var(--border);
+  border-radius:11px;color:var(--muted);font-family:'Cairo',sans-serif;cursor:pointer;
+  transition:all .2s;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:2px;-webkit-user-select:none;user-select:none;}
+.tire-btn .tn{font-size:22px;font-weight:800;}
+.tire-btn .tl{font-size:10px;color:var(--muted);}
+.tire-btn.active{background:rgba(255,193,7,0.1);border-color:var(--gold);color:var(--gold);}
+.tire-btn.active .tl{color:rgba(255,193,7,0.6);}
+
+/* GRADE */
+.grade-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.grade-btn{padding:11px 6px;background:var(--card2);border:1.5px solid var(--border);
+  border-radius:11px;color:var(--muted);font-family:'Cairo',sans-serif;font-size:12px;
+  font-weight:700;cursor:pointer;transition:all .2s;text-align:center;
+  -webkit-user-select:none;user-select:none;}
+.grade-btn.active{background:rgba(0,188,212,0.1);border-color:var(--teal);color:var(--teal);}
+
+/* GRADE ESTIMATE PILLS */
+.grade-est-label{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;display:block;}
+.grade-est-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.gest{padding:10px 8px;background:var(--card2);border:1.5px solid var(--border);
+  border-radius:11px;cursor:pointer;text-align:center;transition:all .2s;
+  -webkit-user-select:none;user-select:none;}
+.gest .g-icon{font-size:18px;display:block;margin-bottom:3px;}
+.gest .g-name{font-size:12px;font-weight:700;color:var(--text);display:block;}
+.gest .g-desc{font-size:10px;color:var(--muted);display:block;margin-top:1px;}
+.gest .g-val{font-size:11px;font-weight:800;color:var(--teal);display:block;margin-top:3px;}
+.gest.active{background:rgba(0,188,212,0.1);border-color:var(--teal);}
+
+/* OR DIVIDER */
+.or-divider{display:flex;align-items:center;gap:8px;margin:10px 0;}
+.or-divider span{font-size:11px;color:var(--muted);white-space:nowrap;}
+.or-divider::before,.or-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* CALC BTN */
+.calc-btn{width:100%;padding:17px;background:linear-gradient(135deg,var(--blue),#1565c0);
+  border:none;border-radius:14px;color:white;font-family:'Cairo',sans-serif;font-size:16px;
+  font-weight:800;cursor:pointer;transition:all .2s;margin-top:6px;
+  box-shadow:0 6px 20px rgba(33,150,243,0.35);-webkit-user-select:none;user-select:none;}
+.calc-btn:active{transform:scale(0.98);}
+
+/* RESULTS */
+.results{display:none;animation:fadeUp .45s ease forwards;}
+.results.show{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* SPEED HERO */
+.speed-hero{background:linear-gradient(145deg,#0d2137,#122844);
+  border:1px solid rgba(33,150,243,0.2);border-radius:20px;
+  padding:28px 18px 20px;text-align:center;position:relative;overflow:hidden;margin-bottom:10px;}
+.speed-hero::before{content:'';position:absolute;top:-50px;left:50%;transform:translateX(-50%);
+  width:260px;height:260px;background:radial-gradient(circle,rgba(33,150,243,0.1) 0%,transparent 70%);pointer-events:none;}
+.hero-lbl{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:6px;}
+.speed-num{font-size:76px;font-weight:900;line-height:1;color:var(--blue2);
+  text-shadow:0 0 36px rgba(100,181,246,0.5);animation:popIn .6s cubic-bezier(.34,1.56,.64,1) forwards;}
+@keyframes popIn{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+.speed-sub{font-size:15px;font-weight:600;color:var(--muted);margin-top:2px;}
+
+/* GAUGE */
+.gauge-wrap{margin:16px 0 4px;}
+.gauge-track{height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;}
+.gauge-fill{height:100%;border-radius:4px;
+  background:linear-gradient(90deg,var(--green),var(--gold),var(--orange),var(--red));
+  width:0%;transition:width 1.2s cubic-bezier(.34,1.56,.64,1);}
+.gauge-ticks{display:flex;justify-content:space-between;margin-top:4px;}
+.gauge-ticks span{font-size:10px;color:var(--muted);}
+
+/* SPEED RANGE */
+.speed-range{background:rgba(255,255,255,0.04);border-radius:10px;padding:10px 14px;
+  margin-top:10px;font-size:12px;color:var(--muted);text-align:center;}
+.speed-range strong{color:var(--blue2);}
+
+/* CLASS BADGE */
+.class-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;
+  border-radius:20px;font-size:12px;font-weight:700;margin-top:14px;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:15px;text-align:center;}
+.sv{font-size:24px;font-weight:800;color:var(--teal);line-height:1;margin-bottom:3px;}
+.su{font-size:10px;font-weight:700;color:var(--muted);margin-bottom:2px;}
+.sl{font-size:11px;color:var(--muted);}
+
+/* FORMULA */
+.formula-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;}
+.formula-card h3{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1px;
+  text-transform:uppercase;margin-bottom:12px;}
+.fstep{display:flex;align-items:flex-start;gap:10px;font-size:12px;margin-bottom:8px;}
+.fstep:last-of-type{margin-bottom:0;}
+.fnum{width:22px;height:22px;background:rgba(33,150,243,0.15);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+  font-weight:800;color:var(--blue2);flex-shrink:0;}
+.ftxt{color:var(--muted);line-height:1.55;padding-top:2px;}
+.ftxt strong{color:var(--text);}
+.formula-hl{background:rgba(0,188,212,0.08);border:1px solid rgba(0,188,212,0.2);
+  border-radius:10px;padding:11px 14px;font-size:12px;font-weight:700;color:var(--teal);
+  text-align:center;margin-top:12px;direction:ltr;word-break:break-all;}
+
+/* WARNING */
+.warn{background:rgba(255,193,7,0.05);border:1px solid rgba(255,193,7,0.18);
+  border-radius:14px;padding:14px;display:flex;gap:10px;margin-bottom:10px;}
+.warn .wi{font-size:17px;flex-shrink:0;margin-top:1px;}
+.warn .wt{font-size:12px;color:var(--muted);line-height:1.7;}
+.warn .wt strong{color:var(--gold);}
+
+/* COPYRIGHT FOOTER */
+.copyright{text-align:center;padding:20px 14px 30px;border-top:1px solid var(--border);margin-top:10px;}
+.copyright .copy-logo{font-size:24px;margin-bottom:6px;}
+.copyright .copy-name{font-size:15px;font-weight:800;color:var(--text);margin-bottom:2px;}
+.copyright .copy-title{font-size:11px;color:var(--muted);margin-bottom:8px;}
+.copyright .copy-line{font-size:10px;color:rgba(255,255,255,0.2);letter-spacing:1px;}
+
+/* INSTALL BANNER */
+.install-banner{background:linear-gradient(135deg,rgba(0,188,212,0.08),rgba(33,150,243,0.08));
+  border:1px solid rgba(0,188,212,0.22);border-radius:16px;padding:16px;margin-bottom:10px;display:none;}
+.install-banner.show{display:block;}
+.install-banner h3{font-size:14px;font-weight:800;margin-bottom:6px;}
+.install-banner>p{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px;}
+.isteps{display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
+.istep{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--text);}
+.inum{width:22px;height:22px;background:linear-gradient(135deg,var(--blue),var(--teal));
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;flex-shrink:0;color:white;margin-top:1px;}
+.ibtn{width:100%;padding:12px;background:linear-gradient(135deg,var(--teal),var(--blue));
+  border:none;border-radius:12px;color:white;font-family:'Cairo',sans-serif;
+  font-size:14px;font-weight:800;cursor:pointer;-webkit-user-select:none;user-select:none;}
+.ibtn:active{opacity:.85;}
+
+/* TOAST */
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:#c62828;color:white;padding:11px 22px;border-radius:28px;font-size:13px;
+  font-weight:700;z-index:999;transition:transform .3s ease;white-space:nowrap;
+  box-shadow:0 4px 18px rgba(0,0,0,0.4);}
+.toast.show{transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-icon">🚗</div>
+  <div class="topbar-text">
+    <h1>محلل حوادث المرور</h1>
+    <p>تحديد السرعة من آثار الفرامل</p>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- INSTALL BANNER -->
+  <div class="install-banner" id="installBanner">
+    <h3>📲 ثبّت التطبيق على هاتفك</h3>
+    <p>يمكنك استخدام التطبيق في أي وقت حتى بدون إنترنت بعد التثبيت</p>
+    <div class="isteps">
+      <div class="istep">
+        <div class="inum">1</div>
+        <span><strong>iPhone / iPad:</strong> اضغط أيقونة المشاركة 📤 في أسفل المتصفح</span>
+      </div>
+      <div class="istep">
+        <div class="inum">2</div>
+        <span><strong>Android:</strong> اضغط النقاط الثلاث ⋮ في أعلى المتصفح</span>
+      </div>
+      <div class="istep">
+        <div class="inum">3</div>
+        <span>اختر <strong>"إضافة إلى الشاشة الرئيسية"</strong> ثم اضغط <strong>إضافة ✅</strong></span>
+      </div>
+    </div>
+    <button class="ibtn" id="installBtn" onclick="handleInstall()">⚡ تثبيت التطبيق الآن</button>
+  </div>
+
+  <!-- 1. SKID DISTANCE -->
+  <div class="sec">
+    <div class="sec-icon ic-blue">📏</div>
+    <div class="sec-text">
+      <h2>طول أثر الفرامل</h2>
+      <p>قِس المسافة من بداية الأثر الأسود على الأرض حتى مكان توقف السيارة</p>
+    </div>
+  </div>
+  <div class="card">
+    <span class="inp-label">أدخل الطول المقاس بالمتر</span>
+    <div class="inp-row">
+      <input type="number" id="skidDist" placeholder="مثال: 35" min="0.1" step="0.1" inputmode="decimal">
+      <div class="inp-unit">متر</div>
+    </div>
+  </div>
+
+  <!-- 2. ROAD TYPE -->
+  <div class="sec">
+    <div class="sec-icon ic-teal">🛣️</div>
+    <div class="sec-text">
+      <h2>نوع وحالة الطريق</h2>
+      <p>اختر ما يُطابق وصف الطريق في مكان الحادثة</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pill-grid" id="roadPills">
+      <div class="pill" onclick="selectRoad(this,0.75)">
+        <span class="p-icon">☀️</span>
+        <span class="p-name">إسفلت جاف — ممتاز</span>
+        <span class="p-mu">احتكاك: 0.75</span>
+      </div>
+      <div class="pill" onclick="selectRoad(this,0.65)">
+        <span class="p-icon">☀️</span>
+        <span class="p-name">إسفلت جاف — متوسط</span>
+        <span class="p-mu">احتكاك: 0.65</span>
+      </div>
+      <div class="pill" onclick="selectRoad(this,0.50)">
+        <span class="p-icon">🌦️</span>
+        <span class="p-name">إسفلت مبلل — مطر خفيف</span>
+        <span class="p-mu">احتكاك: 0.50</span>
+      </div>
+      <div class="pill" onclick="selectRoad(this,0.35)">
+        <span class="p-icon">🌧️</span>
+        <span class="p-name">إسفلت مبلل — مطر غزير</span>
+        <span class="p-mu">احتكاك: 0.35</span>
+      </div>
+      <div class="pill" onclick="selectRoad(this,0.80)">
+        <span class="p-icon">🏗️</span>
+        <span class="p-name">خرسانة جافة</span>
+        <span class="p-mu">احتكاك: 0.80</span>
+      </div>
+      <div class="pill" onclick="selectRoad(this,0.45)">
+        <span class="p-icon">🌧️</span>
+        <span class="p-name">خرسانة مبللة</span>
+        <span class="p-mu">احتكاك: 0.45</span>
+      </div>
+      <div class="pill" onclick="selectRoad(this,0.35)">
+        <span class="p-icon">🪨</span>
+        <span class="p-name">حصى أو رمل</span>
+        <span class="p-mu">احتكاك: 0.35</span>
+      </div>
+      <div class="pill" onclick="selectRoad(this,0.12)">
+        <span class="p-icon">❄️</span>
+        <span class="p-name">جليد أو ثلج</span>
+        <span class="p-mu">احتكاك: 0.12</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. TIRES -->
+  <div class="sec">
+    <div class="sec-icon ic-gold">🔧</div>
+    <div class="sec-text">
+      <h2>عدد الإطارات التي تركت آثاراً</h2>
+      <p>إذا أحصيت أقل من 4 آثار على الأرض، اختر العدد الصحيح</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="tire-grid">
+      <button class="tire-btn" onclick="selectTire(this,1)">
+        <span class="tn">1</span><span class="tl">إطار</span>
+      </button>
+      <button class="tire-btn" onclick="selectTire(this,2)">
+        <span class="tn">2</span><span class="tl">إطار</span>
+      </button>
+      <button class="tire-btn" onclick="selectTire(this,3)">
+        <span class="tn">3</span><span class="tl">إطار</span>
+      </button>
+      <button class="tire-btn active" onclick="selectTire(this,4)">
+        <span class="tn">4</span><span class="tl">الكل ✓</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 4. GRADE -->
+  <div class="sec">
+    <div class="sec-icon ic-green">📐</div>
+    <div class="sec-text">
+      <h2>انحدار الطريق</h2>
+      <p>الطريق الصاعد يُقلّل السرعة المحسوبة، والهابط يُزيدها</p>
+    </div>
+  </div>
+  <div class="card">
+    <!-- Direction toggle -->
+    <div class="grade-row">
+      <button class="grade-btn active" onclick="setGrade('flat',this)">⏤ مستوٍ</button>
+      <button class="grade-btn" onclick="setGrade('up',this)">⬆ صاعد</button>
+      <button class="grade-btn" onclick="setGrade('down',this)">⬇ هابط</button>
+    </div>
+
+    <!-- Slope options — hidden when flat -->
+    <div id="gradeField" style="display:none;">
+
+      <!-- Visual estimation options -->
+      <span class="grade-est-label">اختر وصف الانحدار تقريباً:</span>
+      <div class="grade-est-grid" id="gestGrid">
+        <div class="gest" onclick="selectGest(this, 2)">
+          <span class="g-icon">📉</span>
+          <span class="g-name">انحدار خفيف</span>
+          <span class="g-desc">تحس بالانحدار قليلاً</span>
+          <span class="g-val">≈ 2%</span>
+        </div>
+        <div class="gest" onclick="selectGest(this, 5)">
+          <span class="g-icon">⛰️</span>
+          <span class="g-name">انحدار متوسط</span>
+          <span class="g-desc">واضح للسائق والمشاة</span>
+          <span class="g-val">≈ 5%</span>
+        </div>
+        <div class="gest" onclick="selectGest(this, 8)">
+          <span class="g-icon">🏔️</span>
+          <span class="g-name">انحدار قوي</span>
+          <span class="g-desc">صعب المشي عليه</span>
+          <span class="g-val">≈ 8%</span>
+        </div>
+        <div class="gest" onclick="selectGest(this, 12)">
+          <span class="g-icon">🗻</span>
+          <span class="g-name">انحدار حاد جداً</span>
+          <span class="g-desc">جبلي أو طريق وعر</span>
+          <span class="g-val">≈ 12%</span>
+        </div>
+      </div>
+
+      <!-- OR: manual entry -->
+      <div class="or-divider"><span>أو أدخل النسبة يدوياً إن عرفتها</span></div>
+      <span class="inp-label">نسبة الانحدار بالمئة (اختياري)</span>
+      <div class="inp-row">
+        <input type="number" id="gradeVal" placeholder="مثال: 5" min="0" max="30" step="0.5" inputmode="decimal" oninput="clearGest()">
+        <div class="inp-unit">%</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="calc-btn" onclick="calculate()">⚡ احسب السرعة الآن</button>
+
+  <!-- ─── RESULTS ─── -->
+  <div class="results" id="results">
+
+    <div class="sec" style="margin-top:24px;">
+      <div class="sec-icon ic-blue">📊</div>
+      <div class="sec-text"><h2>نتائج التحليل</h2></div>
+    </div>
+
+    <div class="speed-hero">
+      <div class="hero-lbl">السرعة المقدّرة قبل الحادثة</div>
+      <div class="speed-num" id="resKmh">0</div>
+      <div class="speed-sub">كيلومتر في الساعة</div>
+      <div class="gauge-wrap">
+        <div class="gauge-track"><div class="gauge-fill" id="gaugeFill"></div></div>
+        <div class="gauge-ticks"><span>0</span><span>60</span><span>120</span><span>180+</span></div>
+      </div>
+      <div class="class-badge" id="classBadge"></div>
+      <!-- Speed range considering grade uncertainty -->
+      <div class="speed-range" id="speedRange"></div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="sv" id="resMs">--</div>
+        <div class="su">م / ثانية</div>
+        <div class="sl">السرعة اللحظية</div>
+      </div>
+      <div class="stat-card">
+        <div class="sv" id="resMph">--</div>
+        <div class="su">ميل / ساعة</div>
+        <div class="sl">للمرجع الدولي</div>
+      </div>
+      <div class="stat-card">
+        <div class="sv" id="resBrake">--</div>
+        <div class="su">ثانية</div>
+        <div class="sl">مدة الكبح</div>
+      </div>
+      <div class="stat-card">
+        <div class="sv" id="resMu">--</div>
+        <div class="su">معامل μ</div>
+        <div class="sl">الاحتكاك الفعلي</div>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <h3>🔬 كيف تمت الحسابات؟</h3>
+      <div class="fstep">
+        <div class="fnum">1</div>
+        <div class="ftxt"><strong>مبدأ تحويل الطاقة:</strong> عند الكبح تتحوّل طاقة الحركة إلى حرارة عن طريق احتكاك الإطار بالطريق</div>
+      </div>
+      <div class="fstep">
+        <div class="fnum">2</div>
+        <div class="ftxt" id="fstep2">...</div>
+      </div>
+      <div class="fstep">
+        <div class="fnum">3</div>
+        <div class="ftxt" id="fstep3">...</div>
+      </div>
+      <div class="formula-hl" id="formulaHL">v = √(2 × μ × g × d)</div>
+    </div>
+
+    <div class="warn">
+      <span class="wi">⚠️</span>
+      <div class="wt">
+        <strong>ملاحظة علمية:</strong> هذه النتيجة هي <strong>الحد الأدنى</strong> للسرعة الفعلية. السرعة الحقيقية قد تكون أعلى بسبب وقت رد فعل السائق قبل الكبح، وفقدان جزء من السرعة أثناء الاصطدام. هامش الخطأ المتوقع: <strong>±10 إلى 15%</strong>.
+      </div>
+    </div>
+
+  </div><!-- /results -->
+
+  <!-- COPYRIGHT FOOTER -->
+  <div class="copyright">
+    <div class="copy-logo">⚖️</div>
+    <div class="copy-name">إسماعيل منهو</div>
+    <div class="copy-title">خبير تحليل الحوادث المرورية</div>
+    <div class="copy-line">© جميع الحقوق محفوظة — Ismail Manhou 2025</div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+let selectedMu = null;
+let selectedTires = 4;
+let gradeMode = 'flat';
+let selectedGestVal = null;
+let deferredPrompt = null;
+
+// PWA
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault(); deferredPrompt = e;
+  document.getElementById('installBanner').classList.add('show');
+});
+window.addEventListener('appinstalled', () => {
+  document.getElementById('installBanner').style.display = 'none';
+});
+(function checkIOS(){
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  if(isIOS && !window.navigator.standalone){
+    document.getElementById('installBanner').classList.add('show');
+    document.getElementById('installBtn').style.display = 'none';
+  }
+})();
+async function handleInstall(){
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    const r = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    if(r.outcome === 'accepted') document.getElementById('installBanner').style.display = 'none';
+  }
+}
+
+function selectRoad(el, mu){
+  document.querySelectorAll('#roadPills .pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active'); selectedMu = mu;
+}
+
+function selectTire(el, n){
+  document.querySelectorAll('.tire-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active'); selectedTires = n;
+}
+
+function setGrade(mode, el){
+  gradeMode = mode;
+  document.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('gradeField').style.display = mode === 'flat' ? 'none' : 'block';
+  if(mode === 'flat'){ selectedGestVal = null; }
+}
+
+function selectGest(el, val){
+  document.querySelectorAll('.gest').forEach(g => g.classList.remove('active'));
+  el.classList.add('active');
+  selectedGestVal = val;
+  document.getElementById('gradeVal').value = '';
+}
+
+function clearGest(){
+  document.querySelectorAll('.gest').forEach(g => g.classList.remove('active'));
+  selectedGestVal = null;
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function animVal(id, from, to, dur, dec=0){
+  const el = document.getElementById(id);
+  const s = performance.now();
+  (function step(now){
+    const p = Math.min((now - s) / dur, 1);
+    const e = 1 - Math.pow(1 - p, 3);
+    el.textContent = (from + (to - from) * e).toFixed(dec);
+    if(p < 1) requestAnimationFrame(step);
+  })(performance.now());
+}
+
+function calcSpeed(muEff, d){
+  return Math.sqrt(2 * muEff * 9.81 * d);
+}
+
+function calculate(){
+  const d = parseFloat(document.getElementById('skidDist').value);
+  if(!d || d <= 0){ showToast('⚠ أدخل طول أثر الفرامل بالمتر'); return; }
+  if(selectedMu === null){ showToast('⚠ اختر نوع وحالة الطريق'); return; }
+
+  const g = 9.81;
+  const ratio = selectedTires / 4;
+
+  // Get grade value
+  let gradeAdj = 0;
+  let gradePercent = 0;
+  let gradeIsEstimate = false;
+
+  if(gradeMode !== 'flat'){
+    const manualVal = parseFloat(document.getElementById('gradeVal').value);
+    if(selectedGestVal !== null){
+      gradePercent = selectedGestVal;
+      gradeIsEstimate = true;
+    } else if(!isNaN(manualVal) && manualVal >= 0){
+      gradePercent = manualVal;
+      gradeIsEstimate = false;
+    }
+    gradeAdj = (gradeMode === 'up' ? 1 : -1) * (gradePercent / 100);
+  }
+
+  const muEff = (selectedMu / ratio) + gradeAdj;
+  const vMs = calcSpeed(muEff, d);
+  const vKmh = vMs * 3.6;
+  const vMph = vMs * 2.237;
+  const tBrake = vMs / (muEff * g);
+
+  // If estimate was used, calc range ±1 grade level
+  let rangeText = '';
+  if(gradeIsEstimate && gradeMode !== 'flat'){
+    const lowAdj = (gradeMode === 'up' ? 1 : -1) * (Math.max(0, gradePercent - 2) / 100);
+    const highAdj = (gradeMode === 'up' ? 1 : -1) * ((gradePercent + 2) / 100);
+    const muLow = (selectedMu / ratio) + lowAdj;
+    const muHigh = (selectedMu / ratio) + highAdj;
+    const vLow = calcSpeed(muLow, d) * 3.6;
+    const vHigh = calcSpeed(muHigh, d) * 3.6;
+    const r1 = Math.min(vLow, vHigh).toFixed(0);
+    const r2 = Math.max(vLow, vHigh).toFixed(0);
+    rangeText = `نطاق مع هامش الانحدار التقديري: <strong>${r1} — ${r2} كم/س</strong>`;
+  }
+
+  // Show results
+  const res = document.getElementById('results');
+  res.classList.add('show');
+  setTimeout(() => res.scrollIntoView({behavior:'smooth', block:'start'}), 100);
+
+  animVal('resKmh', 0, vKmh, 900, 1);
+  animVal('resMs',  0, vMs,  900, 1);
+  animVal('resMph', 0, vMph, 900, 0);
+  animVal('resBrake', 0, tBrake, 900, 1);
+  animVal('resMu', 0, muEff, 900, 2);
+
+  setTimeout(() => {
+    document.getElementById('gaugeFill').style.width = Math.min((vKmh / 180) * 100, 100) + '%';
+  }, 200);
+
+  // Speed range display
+  const rangeEl = document.getElementById('speedRange');
+  if(rangeText){
+    rangeEl.innerHTML = rangeText;
+    rangeEl.style.display = 'block';
+  } else {
+    rangeEl.style.display = 'none';
+  }
+
+  // Classification
+  const badge = document.getElementById('classBadge');
+  let icon, label, bg, bdr;
+  if(vKmh < 40)       { icon='🟢'; label='سرعة منخفضة — أقل من 40 كم/س';    bg='rgba(76,175,80,0.15)';  bdr='rgba(76,175,80,0.4)'; }
+  else if(vKmh < 70)  { icon='🟡'; label='سرعة معتدلة — داخل المدن';         bg='rgba(255,235,59,0.1)';  bdr='rgba(255,235,59,0.4)'; }
+  else if(vKmh < 100) { icon='🟠'; label='سرعة عالية — طرق رئيسية';          bg='rgba(255,152,0,0.12)';  bdr='rgba(255,152,0,0.4)'; }
+  else if(vKmh < 140) { icon='🔴'; label='سرعة مرتفعة جداً — طرق سريعة';    bg='rgba(244,67,54,0.12)';  bdr='rgba(244,67,54,0.4)'; }
+  else                 { icon='⛔'; label='سرعة خطرة للغاية';                 bg='rgba(183,28,28,0.18)';  bdr='rgba(244,67,54,0.6)'; }
+  badge.style.cssText = `background:${bg};border:1px solid ${bdr};color:#e8eef5;`;
+  badge.innerHTML = `${icon} ${label}`;
+
+  // Formula steps
+  const gradeNote = gradeIsEstimate ? ` (تقدير ${gradePercent}%)` : (gradePercent > 0 ? ` (${gradePercent}%)` : '');
+  document.getElementById('fstep2').innerHTML =
+    `<strong>المعامل الفعلي للاحتكاك:</strong> μ = ${selectedMu} ÷ ${ratio}${gradeAdj !== 0 ? (gradeAdj > 0 ? ' + ' : ' − ') + Math.abs(gradeAdj).toFixed(3) + gradeNote : ''} = <strong>${muEff.toFixed(3)}</strong>`;
+  document.getElementById('fstep3').innerHTML =
+    `<strong>تطبيق المعادلة:</strong> v = √(2 × ${muEff.toFixed(3)} × 9.81 × ${d}) = <strong>${vKmh.toFixed(1)} كم/س</strong>`;
+  document.getElementById('formulaHL').textContent =
+    `v = √(2×${muEff.toFixed(3)}×9.81×${d}) = ${vMs.toFixed(2)} م/ث = ${vKmh.toFixed(1)} كم/س`;
+}
+
+// Service Worker
+if('serviceWorker' in navigator){
+  const sw = `const C='skid-v2';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});`;
+  const swB = new Blob([sw], {type:'application/javascript'});
+  navigator.serviceWorker.register(URL.createObjectURL(swB)).catch(()=>{});
+}
+</script>
+</body>
+</html>
