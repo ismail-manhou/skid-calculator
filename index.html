@@ -2,871 +2,873 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#0d1b2a">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="محلل الحوادث">
-<meta name="mobile-web-app-capable" content="yes">
-<title>محلل حوادث المرور</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script>
-const manifest = {
-  name: "محلل حوادث المرور",
-  short_name: "محلل الحوادث",
-  description: "تحديد سرعة المركبة من آثار الفرامل — إسماعيل منهو",
-  start_url: ".",
-  display: "standalone",
-  background_color: "#0d1b2a",
-  theme_color: "#0d1b2a",
-  orientation: "portrait",
-  icons: [
-    { src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='24' fill='%230d1b2a'/%3E%3Ctext x='96' y='130' font-size='100' text-anchor='middle'%3E%F0%9F%9A%97%3C/text%3E%3C/svg%3E", sizes: "192x192", type: "image/svg+xml" }
-  ]
-};
-const blob = new Blob([JSON.stringify(manifest)], {type:'application/manifest+json'});
-const lnk = document.createElement('link');
-lnk.rel = 'manifest'; lnk.href = URL.createObjectURL(blob);
-document.head.appendChild(lnk);
-</script>
+<title>محلل حوادث المرور — إسماعيل منهو</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{
-  --navy:#0d1b2a;--navy2:#122034;--card:#1a2e42;--card2:#1f3650;
-  --border:rgba(255,255,255,0.08);--blue:#2196f3;--blue2:#64b5f6;
-  --teal:#00bcd4;--gold:#ffc107;--green:#4caf50;--orange:#ff9800;--red:#f44336;
-  --text:#e8eef5;--muted:#7a95b0;--shadow:0 4px 24px rgba(0,0,0,0.4);
+  --bg:#0d1b2a;--card:#1a2e42;--card2:#1f3650;
+  --border:rgba(255,255,255,0.08);
+  --blue:#2196f3;--blue2:#64b5f6;
+  --teal:#00bcd4;--gold:#ffc107;
+  --green:#4caf50;--orange:#ff9800;--red:#f44336;
+  --text:#e8eef5;--muted:#7a95b0;
 }
 html{scroll-behavior:smooth;}
-body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--text);
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);
   min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 
-/* TOP BAR */
-.topbar{position:sticky;top:0;z-index:100;background:rgba(13,27,42,0.96);
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(13,27,42,0.97);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);padding:12px 18px;
-  display:flex;align-items:center;gap:12px;}
-.topbar-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--blue),var(--teal));
-  border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.topbar-text h1{font-size:15px;font-weight:800;line-height:1.2;}
-.topbar-text p{font-size:11px;color:var(--muted);}
+  border-bottom:1px solid var(--border);padding:11px 15px;
+  display:flex;align-items:center;gap:10px;}
+.tb-ic{width:35px;height:35px;background:linear-gradient(135deg,var(--blue),var(--teal));
+  border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.tb-t{font-size:14px;font-weight:800;line-height:1.2;}
+.tb-s{font-size:10px;color:var(--muted);}
 
 /* MAIN */
-.main{padding:16px 14px 40px;max-width:520px;margin:0 auto;}
+.main{padding:13px 12px 60px;max-width:520px;margin:0 auto;}
 
-/* SECTION LABEL */
-.sec{display:flex;align-items:flex-start;gap:10px;margin:22px 0 10px;}
-.sec-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;
-  justify-content:center;font-size:16px;flex-shrink:0;margin-top:1px;}
-.ic-blue{background:rgba(33,150,243,0.15);}
-.ic-teal{background:rgba(0,188,212,0.15);}
-.ic-gold{background:rgba(255,193,7,0.15);}
-.ic-green{background:rgba(76,175,80,0.15);}
-.sec-text h2{font-size:14px;font-weight:800;margin-bottom:1px;}
-.sec-text p{font-size:11px;color:var(--muted);line-height:1.4;}
+/* SECTION */
+.sec{display:flex;align-items:flex-start;gap:9px;margin:19px 0 8px;}
+.sic{width:29px;height:29px;border-radius:8px;display:flex;align-items:center;
+  justify-content:center;font-size:14px;flex-shrink:0;margin-top:1px;}
+.ib{background:rgba(33,150,243,0.15);}
+.it{background:rgba(0,188,212,0.15);}
+.ig{background:rgba(255,193,7,0.15);}
+.igr{background:rgba(76,175,80,0.15);}
+.st h2{font-size:13px;font-weight:800;}
+.st p{font-size:11px;color:var(--muted);line-height:1.4;margin-top:1px;}
 
 /* CARD */
-.card{background:var(--card);border:1px solid var(--border);border-radius:16px;
-  padding:18px;margin-bottom:10px;box-shadow:var(--shadow);}
+.card{background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:15px;margin-bottom:9px;
+  box-shadow:0 4px 18px rgba(0,0,0,0.3);}
+
+/* LABEL */
+.lbl{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:6px;display:block;}
 
 /* INPUT */
-.inp-label{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;display:block;}
-.inp-row{display:flex;align-items:center;background:var(--card2);
-  border:1.5px solid var(--border);border-radius:12px;overflow:hidden;
+.irow{display:flex;align-items:center;background:var(--card2);
+  border:1.5px solid var(--border);border-radius:10px;overflow:hidden;
   transition:border-color .2s,box-shadow .2s;}
-.inp-row:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(33,150,243,0.12);}
-.inp-row input{flex:1;background:transparent;border:none;outline:none;color:var(--text);
-  font-family:'Cairo',sans-serif;font-size:24px;font-weight:700;padding:13px 14px;
-  width:100%;text-align:right;}
-.inp-row input::placeholder{color:rgba(255,255,255,0.18);font-size:15px;}
-.inp-unit{padding:0 14px 0 10px;font-size:12px;font-weight:700;color:var(--blue2);
+.irow:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(33,150,243,0.1);}
+.irow input{flex:1;background:transparent;border:none;outline:none;
+  color:var(--text);font-family:'Cairo',sans-serif;font-size:22px;font-weight:700;
+  padding:11px 12px;width:100%;text-align:right;}
+.irow input::placeholder{color:rgba(255,255,255,0.13);font-size:14px;}
+.iunit{padding:0 12px 0 8px;font-size:11px;font-weight:700;color:var(--blue2);
   white-space:nowrap;border-right:1px solid var(--border);}
 
 /* PILLS */
-.pill-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.pill{padding:12px 10px;background:var(--card2);border:1.5px solid var(--border);
-  border-radius:12px;color:var(--muted);font-family:'Cairo',sans-serif;font-size:12px;
-  font-weight:600;cursor:pointer;transition:all .2s;text-align:center;
+.pg2{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.pg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;}
+.pill{padding:10px 7px;background:var(--card2);border:1.5px solid var(--border);
+  border-radius:10px;cursor:pointer;text-align:center;
   display:flex;flex-direction:column;align-items:center;gap:3px;
-  -webkit-user-select:none;user-select:none;}
-.pill .p-icon{font-size:20px;}
-.pill .p-name{font-size:12px;font-weight:700;color:var(--text);}
-.pill .p-mu{font-size:10px;color:var(--muted);}
-.pill.active{background:rgba(33,150,243,0.1);border-color:var(--blue);}
-.pill.active .p-mu{color:var(--blue2);}
+  transition:all .2s;-webkit-user-select:none;user-select:none;}
+.pill .pi{font-size:18px;}
+.pill .pn{font-size:11px;font-weight:800;color:var(--text);}
+.pill .pd{font-size:9px;color:var(--muted);}
+.pill .pv{font-size:10px;font-weight:800;color:var(--teal);}
+.pill.ab{background:rgba(33,150,243,0.1);border-color:var(--blue);}
+.pill.ab .pn{color:var(--blue2);}
+.pill.ag{background:rgba(255,193,7,0.1);border-color:var(--gold);}
+.pill.ag .pn{color:var(--gold);}
+.pill.at{background:rgba(0,188,212,0.1);border-color:var(--teal);}
+.pill.at .pn{color:var(--teal);}
 
-/* TIRE SYSTEM */
-.drive-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
-.drive-btn{padding:12px 6px;background:var(--card2);border:1.5px solid var(--border);
-  border-radius:12px;color:var(--muted);font-family:'Cairo',sans-serif;cursor:pointer;
-  transition:all .2s;text-align:center;display:flex;flex-direction:column;
-  align-items:center;gap:4px;-webkit-user-select:none;user-select:none;}
-.drive-btn .db-icon{font-size:22px;}
-.drive-btn .db-name{font-size:12px;font-weight:800;color:var(--text);}
-.drive-btn .db-desc{font-size:10px;color:var(--muted);}
-.drive-btn.active{background:rgba(255,193,7,0.1);border-color:var(--gold);}
-.drive-btn.active .db-name{color:var(--gold);}
-.car-diagram{background:var(--card2);border:1px solid var(--border);border-radius:14px;
-  padding:16px;margin-bottom:10px;}
-.car-diagram-label{font-size:11px;font-weight:700;color:var(--muted);text-align:center;
-  margin-bottom:12px;letter-spacing:1px;}
-.tire-map{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:200px;margin:0 auto;}
-.tire-check{width:100%;padding:12px 6px;background:var(--card2);border:1.5px solid var(--border);
-  border-radius:10px;cursor:pointer;text-align:center;transition:all .2s;
-  -webkit-user-select:none;user-select:none;display:flex;flex-direction:column;
-  align-items:center;gap:3px;}
-.tire-check .tc-icon{font-size:22px;}
-.tire-check .tc-lbl{font-size:11px;font-weight:700;color:var(--muted);}
-.tire-check.marked{background:rgba(255,193,7,0.12);border-color:var(--gold);}
-.tire-check.marked .tc-lbl{color:var(--gold);}
-.tire-check.no-mark{background:rgba(100,120,140,0.05);border-color:rgba(255,255,255,0.04);}
-.tire-check.no-mark .tc-icon{filter:grayscale(1);opacity:0.25;}
-.tire-check.no-mark .tc-lbl{color:rgba(255,255,255,0.15);}
-.tire-axle-label{text-align:center;font-size:10px;color:var(--muted);
-  margin:4px 0 8px;font-weight:700;letter-spacing:1px;}
-.tire-summary{background:rgba(255,193,7,0.06);border:1px solid rgba(255,193,7,0.15);
-  border-radius:10px;padding:10px 14px;margin-top:12px;font-size:12px;
-  color:var(--muted);text-align:center;line-height:1.7;}
-.tire-summary strong{color:var(--gold);}
-.tire-factor-badge{display:inline-block;background:rgba(0,188,212,0.1);
-  border:1px solid rgba(0,188,212,0.25);border-radius:20px;
-  padding:2px 10px;font-size:11px;font-weight:800;color:var(--teal);margin-top:4px;}
+/* VEHICLE GRID */
+.veh-scroll{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.veh-scroll::-webkit-scrollbar{display:none;}
+.veh-row2{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:7px;}
+.veh-pill{min-width:90px;flex-shrink:0;padding:11px 8px;background:var(--card2);
+  border:1.5px solid var(--border);border-radius:11px;cursor:pointer;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  transition:all .2s;-webkit-user-select:none;user-select:none;}
+.veh-pill .vi{font-size:24px;}
+.veh-pill .vn{font-size:11px;font-weight:800;color:var(--text);}
+.veh-pill .vd{font-size:9px;color:var(--muted);}
+.veh-pill.active{background:rgba(33,150,243,0.1);border-color:var(--blue);}
+.veh-pill.active .vn{color:var(--blue2);}
+
+/* TIRE MAP */
+.dir-lbl{text-align:center;font-size:10px;font-weight:700;color:var(--muted);
+  padding:5px;background:rgba(255,255,255,0.03);border-radius:7px;margin:7px 0;}
+.axle-lbl{text-align:center;font-size:10px;font-weight:700;color:var(--muted);
+  letter-spacing:1px;margin:7px 0 5px;}
+.tmap4{display:grid;grid-template-columns:1fr 1fr;gap:7px;width:200px;margin:0 auto;}
+.tmap2{display:flex;flex-direction:column;gap:7px;width:100px;margin:0 auto;}
+.tmap3f{display:grid;grid-template-columns:1fr 1fr;gap:7px;width:200px;margin:0 auto;}
+.tmap1c{width:100px;margin:0 auto;}
+
+.tb{padding:10px 5px;background:var(--card2);border:1.5px solid var(--border);
+  border-radius:9px;cursor:pointer;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  transition:all .2s;-webkit-user-select:none;user-select:none;}
+.tb .ti{font-size:18px;}
+.tb .tl{font-size:9px;font-weight:700;color:var(--muted);}
+.tb .tw{font-size:8px;color:var(--muted);}
+.tb.on{background:rgba(255,193,7,0.1);border-color:var(--gold);}
+.tb.on .tl{color:var(--gold);}
+.tb.on .tw{color:rgba(255,193,7,0.55);}
+.tb.off{background:rgba(255,255,255,0.02);border-color:rgba(255,255,255,0.03);}
+.tb.off .ti{opacity:0.15;}
+.tb.off .tl{color:rgba(255,255,255,0.13);}
+.tb.off .tw{color:rgba(255,255,255,0.08);}
+
+/* TIRE SUMMARY */
+.tsum{background:rgba(255,193,7,0.04);border:1px solid rgba(255,193,7,0.14);
+  border-radius:9px;padding:9px 12px;margin-top:10px;
+  font-size:11px;color:var(--muted);text-align:center;line-height:1.7;}
+.tsum strong{color:var(--gold);}
+.fbadge{display:inline-block;background:rgba(0,188,212,0.1);
+  border:1px solid rgba(0,188,212,0.25);border-radius:18px;
+  padding:2px 9px;font-size:10px;font-weight:800;color:var(--teal);margin-top:2px;}
 
 /* GRADE */
-.grade-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
-.grade-btn{padding:11px 6px;background:var(--card2);border:1.5px solid var(--border);
-  border-radius:11px;color:var(--muted);font-family:'Cairo',sans-serif;font-size:12px;
+.grade-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px;}
+.gbtn{padding:9px 4px;background:var(--card2);border:1.5px solid var(--border);
+  border-radius:10px;color:var(--muted);font-family:'Cairo',sans-serif;font-size:11px;
   font-weight:700;cursor:pointer;transition:all .2s;text-align:center;
   -webkit-user-select:none;user-select:none;}
-.grade-btn.active{background:rgba(0,188,212,0.1);border-color:var(--teal);color:var(--teal);}
-
-/* GRADE ESTIMATE PILLS */
-.grade-est-label{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;display:block;}
-.grade-est-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
-.gest{padding:10px 8px;background:var(--card2);border:1.5px solid var(--border);
-  border-radius:11px;cursor:pointer;text-align:center;transition:all .2s;
-  -webkit-user-select:none;user-select:none;}
-.gest .g-icon{font-size:18px;display:block;margin-bottom:3px;}
-.gest .g-name{font-size:12px;font-weight:700;color:var(--text);display:block;}
-.gest .g-desc{font-size:10px;color:var(--muted);display:block;margin-top:1px;}
-.gest .g-val{font-size:11px;font-weight:800;color:var(--teal);display:block;margin-top:3px;}
-.gest.active{background:rgba(0,188,212,0.1);border-color:var(--teal);}
-
-/* OR DIVIDER */
-.or-divider{display:flex;align-items:center;gap:8px;margin:10px 0;}
-.or-divider span{font-size:11px;color:var(--muted);white-space:nowrap;}
-.or-divider::before,.or-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.gbtn.active{background:rgba(0,188,212,0.1);border-color:var(--teal);color:var(--teal);}
+.gest-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.or-div{display:flex;align-items:center;gap:7px;margin:8px 0;}
+.or-div span{font-size:10px;color:var(--muted);white-space:nowrap;}
+.or-div::before,.or-div::after{content:'';flex:1;height:1px;background:var(--border);}
 
 /* CALC BTN */
-.calc-btn{width:100%;padding:17px;background:linear-gradient(135deg,var(--blue),#1565c0);
-  border:none;border-radius:14px;color:white;font-family:'Cairo',sans-serif;font-size:16px;
-  font-weight:800;cursor:pointer;transition:all .2s;margin-top:6px;
-  box-shadow:0 6px 20px rgba(33,150,243,0.35);-webkit-user-select:none;user-select:none;}
+.calc-btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--blue),#1565c0);
+  border:none;border-radius:12px;color:white;font-family:'Cairo',sans-serif;
+  font-size:15px;font-weight:800;cursor:pointer;margin-top:5px;
+  box-shadow:0 5px 18px rgba(33,150,243,0.3);-webkit-user-select:none;user-select:none;}
 .calc-btn:active{transform:scale(0.98);}
 
 /* RESULTS */
-.results{display:none;animation:fadeUp .45s ease forwards;}
+.results{display:none;animation:fadeUp .4s ease forwards;}
 .results.show{display:block;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
 
-/* SPEED HERO */
 .speed-hero{background:linear-gradient(145deg,#0d2137,#122844);
-  border:1px solid rgba(33,150,243,0.2);border-radius:20px;
-  padding:28px 18px 20px;text-align:center;position:relative;overflow:hidden;margin-bottom:10px;}
-.speed-hero::before{content:'';position:absolute;top:-50px;left:50%;transform:translateX(-50%);
-  width:260px;height:260px;background:radial-gradient(circle,rgba(33,150,243,0.1) 0%,transparent 70%);pointer-events:none;}
-.hero-lbl{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:2px;
-  text-transform:uppercase;margin-bottom:6px;}
-.speed-num{font-size:76px;font-weight:900;line-height:1;color:var(--blue2);
-  text-shadow:0 0 36px rgba(100,181,246,0.5);animation:popIn .6s cubic-bezier(.34,1.56,.64,1) forwards;}
-@keyframes popIn{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
-.speed-sub{font-size:15px;font-weight:600;color:var(--muted);margin-top:2px;}
-
-/* GAUGE */
-.gauge-wrap{margin:16px 0 4px;}
-.gauge-track{height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;}
+  border:1px solid rgba(33,150,243,0.2);border-radius:17px;
+  padding:24px 15px 17px;text-align:center;position:relative;overflow:hidden;margin-bottom:8px;}
+.speed-hero::before{content:'';position:absolute;top:-45px;left:50%;transform:translateX(-50%);
+  width:220px;height:220px;background:radial-gradient(circle,rgba(33,150,243,0.1) 0%,transparent 70%);pointer-events:none;}
+.hlbl{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:4px;}
+.spnum{font-size:68px;font-weight:900;line-height:1;color:var(--blue2);
+  text-shadow:0 0 30px rgba(100,181,246,0.5);animation:popIn .5s cubic-bezier(.34,1.56,.64,1) forwards;}
+@keyframes popIn{from{opacity:0;transform:scale(.75)}to{opacity:1;transform:scale(1)}}
+.spsub{font-size:13px;font-weight:600;color:var(--muted);margin-top:2px;}
+.gauge-wrap{margin:13px 0 4px;}
+.gauge-track{height:7px;background:rgba(255,255,255,0.05);border-radius:4px;overflow:hidden;}
 .gauge-fill{height:100%;border-radius:4px;
   background:linear-gradient(90deg,var(--green),var(--gold),var(--orange),var(--red));
-  width:0%;transition:width 1.2s cubic-bezier(.34,1.56,.64,1);}
-.gauge-ticks{display:flex;justify-content:space-between;margin-top:4px;}
-.gauge-ticks span{font-size:10px;color:var(--muted);}
+  width:0%;transition:width 1.1s cubic-bezier(.34,1.56,.64,1);}
+.gauge-ticks{display:flex;justify-content:space-between;margin-top:3px;}
+.gauge-ticks span{font-size:9px;color:var(--muted);}
+.cbadge{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;
+  border-radius:16px;font-size:11px;font-weight:700;margin-top:11px;}
+.srange{background:rgba(255,255,255,0.03);border-radius:8px;padding:7px 11px;
+  margin-top:7px;font-size:11px;color:var(--muted);text-align:center;}
+.srange strong{color:var(--blue2);}
 
-/* SPEED RANGE */
-.speed-range{background:rgba(255,255,255,0.04);border-radius:10px;padding:10px 14px;
-  margin-top:10px;font-size:12px;color:var(--muted);text-align:center;}
-.speed-range strong{color:var(--blue2);}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px;}
+.sc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;}
+.sv{font-size:21px;font-weight:800;color:var(--teal);line-height:1;margin-bottom:2px;}
+.su{font-size:9px;font-weight:700;color:var(--muted);margin-bottom:1px;}
+.sl{font-size:10px;color:var(--muted);}
 
-/* CLASS BADGE */
-.class-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;
-  border-radius:20px;font-size:12px;font-weight:700;margin-top:14px;}
-
-/* STATS */
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px;}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:15px;text-align:center;}
-.sv{font-size:24px;font-weight:800;color:var(--teal);line-height:1;margin-bottom:3px;}
-.su{font-size:10px;font-weight:700;color:var(--muted);margin-bottom:2px;}
-.sl{font-size:11px;color:var(--muted);}
-
-/* FORMULA */
-.formula-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;}
-.formula-card h3{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1px;
-  text-transform:uppercase;margin-bottom:12px;}
-.fstep{display:flex;align-items:flex-start;gap:10px;font-size:12px;margin-bottom:8px;}
-.fstep:last-of-type{margin-bottom:0;}
-.fnum{width:22px;height:22px;background:rgba(33,150,243,0.15);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:11px;
-  font-weight:800;color:var(--blue2);flex-shrink:0;}
-.ftxt{color:var(--muted);line-height:1.55;padding-top:2px;}
+.fcrd{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px;margin-bottom:8px;}
+.fcrd h3{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1px;
+  text-transform:uppercase;margin-bottom:10px;}
+.fstep{display:flex;align-items:flex-start;gap:8px;font-size:11px;margin-bottom:6px;}
+.fnum{width:19px;height:19px;background:rgba(33,150,243,0.15);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:800;color:var(--blue2);flex-shrink:0;}
+.ftxt{color:var(--muted);line-height:1.55;padding-top:1px;}
 .ftxt strong{color:var(--text);}
-.formula-hl{background:rgba(0,188,212,0.08);border:1px solid rgba(0,188,212,0.2);
-  border-radius:10px;padding:11px 14px;font-size:12px;font-weight:700;color:var(--teal);
-  text-align:center;margin-top:12px;direction:ltr;word-break:break-all;}
+.fhl{background:rgba(0,188,212,0.07);border:1px solid rgba(0,188,212,0.18);
+  border-radius:8px;padding:9px 12px;font-size:11px;font-weight:700;color:var(--teal);
+  text-align:center;margin-top:9px;direction:ltr;word-break:break-all;}
 
-/* WARNING */
-.warn{background:rgba(255,193,7,0.05);border:1px solid rgba(255,193,7,0.18);
-  border-radius:14px;padding:14px;display:flex;gap:10px;margin-bottom:10px;}
-.warn .wi{font-size:17px;flex-shrink:0;margin-top:1px;}
-.warn .wt{font-size:12px;color:var(--muted);line-height:1.7;}
-.warn .wt strong{color:var(--gold);}
+.warn{background:rgba(255,193,7,0.04);border:1px solid rgba(255,193,7,0.15);
+  border-radius:12px;padding:11px 13px;display:flex;gap:8px;margin-bottom:8px;}
+.wi{font-size:15px;flex-shrink:0;margin-top:1px;}
+.wt{font-size:11px;color:var(--muted);line-height:1.65;}
+.wt strong{color:var(--gold);}
 
-/* COPYRIGHT FOOTER */
-.copyright{text-align:center;padding:20px 14px 30px;border-top:1px solid var(--border);margin-top:10px;}
-.copyright .copy-logo{font-size:24px;margin-bottom:6px;}
-.copyright .copy-name{font-size:15px;font-weight:800;color:var(--text);margin-bottom:2px;}
-.copyright .copy-title{font-size:11px;color:var(--muted);margin-bottom:8px;}
-.copyright .copy-line{font-size:10px;color:rgba(255,255,255,0.2);letter-spacing:1px;}
+/* FOOTER */
+.footer{text-align:center;padding:16px 12px 26px;border-top:1px solid var(--border);margin-top:7px;}
+.footer .flogo{font-size:20px;margin-bottom:4px;}
+.footer .fname{font-size:14px;font-weight:900;}
+.footer .ftitle{font-size:10px;color:var(--muted);margin-bottom:5px;}
+.footer .fcopy{font-size:9px;color:rgba(255,255,255,0.16);letter-spacing:1px;}
 
-/* INSTALL BANNER */
-.install-banner{background:linear-gradient(135deg,rgba(0,188,212,0.08),rgba(33,150,243,0.08));
-  border:1px solid rgba(0,188,212,0.22);border-radius:16px;padding:16px;margin-bottom:10px;display:none;}
-.install-banner.show{display:block;}
-.install-banner h3{font-size:14px;font-weight:800;margin-bottom:6px;}
-.install-banner>p{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px;}
-.isteps{display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
-.istep{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--text);}
-.inum{width:22px;height:22px;background:linear-gradient(135deg,var(--blue),var(--teal));
+/* INSTALL */
+.ibanner{background:linear-gradient(135deg,rgba(0,188,212,0.07),rgba(33,150,243,0.07));
+  border:1px solid rgba(0,188,212,0.18);border-radius:13px;padding:13px;
+  margin-bottom:8px;display:none;}
+.ibanner.show{display:block;}
+.ibanner h3{font-size:13px;font-weight:800;margin-bottom:4px;}
+.ibanner p{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:10px;}
+.isteps{display:flex;flex-direction:column;gap:5px;margin-bottom:11px;}
+.istep{display:flex;align-items:flex-start;gap:8px;font-size:11px;color:var(--text);}
+.inum{width:19px;height:19px;background:linear-gradient(135deg,var(--blue),var(--teal));
   border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:800;flex-shrink:0;color:white;margin-top:1px;}
-.ibtn{width:100%;padding:12px;background:linear-gradient(135deg,var(--teal),var(--blue));
-  border:none;border-radius:12px;color:white;font-family:'Cairo',sans-serif;
-  font-size:14px;font-weight:800;cursor:pointer;-webkit-user-select:none;user-select:none;}
-.ibtn:active{opacity:.85;}
+  font-size:10px;font-weight:800;flex-shrink:0;color:white;margin-top:1px;}
+.ibtn{width:100%;padding:10px;background:linear-gradient(135deg,var(--teal),var(--blue));
+  border:none;border-radius:10px;color:white;font-family:'Cairo',sans-serif;
+  font-size:13px;font-weight:800;cursor:pointer;}
 
 /* TOAST */
-.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);
-  background:#c62828;color:white;padding:11px 22px;border-radius:28px;font-size:13px;
-  font-weight:700;z-index:999;transition:transform .3s ease;white-space:nowrap;
-  box-shadow:0 4px 18px rgba(0,0,0,0.4);}
+.toast{position:fixed;bottom:19px;left:50%;transform:translateX(-50%) translateY(65px);
+  background:#c62828;color:white;padding:9px 18px;border-radius:22px;
+  font-size:12px;font-weight:700;z-index:999;transition:transform .3s;
+  white-space:nowrap;box-shadow:0 3px 14px rgba(0,0,0,0.4);}
 .toast.show{transform:translateX(-50%) translateY(0);}
 </style>
 </head>
 <body>
-
 <div class="toast" id="toast"></div>
 
-<!-- TOP BAR -->
 <div class="topbar">
-  <div class="topbar-icon">🚗</div>
-  <div class="topbar-text">
-    <h1>محلل حوادث المرور</h1>
-    <p>تحديد السرعة من آثار الفرامل</p>
+  <div class="tb-ic">🚗</div>
+  <div>
+    <div class="tb-t">محلل حوادث المرور</div>
+    <div class="tb-s">تحديد السرعة من آثار الفرامل — إسماعيل منهو</div>
   </div>
 </div>
 
 <div class="main">
 
-  <!-- INSTALL BANNER -->
-  <div class="install-banner" id="installBanner">
-    <h3>📲 ثبّت التطبيق على هاتفك</h3>
-    <p>يمكنك استخدام التطبيق في أي وقت حتى بدون إنترنت بعد التثبيت</p>
-    <div class="isteps">
-      <div class="istep">
-        <div class="inum">1</div>
-        <span><strong>iPhone / iPad:</strong> اضغط أيقونة المشاركة 📤 في أسفل المتصفح</span>
-      </div>
-      <div class="istep">
-        <div class="inum">2</div>
-        <span><strong>Android:</strong> اضغط النقاط الثلاث ⋮ في أعلى المتصفح</span>
-      </div>
-      <div class="istep">
-        <div class="inum">3</div>
-        <span>اختر <strong>"إضافة إلى الشاشة الرئيسية"</strong> ثم اضغط <strong>إضافة ✅</strong></span>
-      </div>
-    </div>
-    <button class="ibtn" id="installBtn" onclick="handleInstall()">⚡ تثبيت التطبيق الآن</button>
+<div class="ibanner" id="installBanner">
+  <h3>📲 ثبّت التطبيق على هاتفك</h3>
+  <p>استخدمه في الميدان حتى بدون إنترنت</p>
+  <div class="isteps">
+    <div class="istep"><div class="inum">1</div><span><strong>iPhone:</strong> اضغط 📤 ثم "إضافة إلى الشاشة الرئيسية"</span></div>
+    <div class="istep"><div class="inum">2</div><span><strong>Android:</strong> اضغط ⋮ ثم "إضافة إلى الشاشة الرئيسية"</span></div>
   </div>
+  <button class="ibtn" id="installBtn" onclick="handleInstall()">⚡ تثبيت الآن</button>
+</div>
 
-  <!-- 1. SKID DISTANCE -->
-  <div class="sec">
-    <div class="sec-icon ic-blue">📏</div>
-    <div class="sec-text">
-      <h2>طول أثر الفرامل</h2>
-      <p>قِس المسافة من بداية الأثر الأسود على الأرض حتى مكان توقف السيارة</p>
-    </div>
+<div class="sec">
+  <div class="sic ib">📏</div>
+  <div class="st"><h2>طول أثر الفرامل</h2><p>من أول أثر أسود على الأرض حتى نقطة توقف المركبة</p></div>
+</div>
+<div class="card">
+  <span class="lbl">الطول المقاس بالمتر</span>
+  <div class="irow">
+    <input type="number" id="skidDist" placeholder="مثال: 35" min="0.1" step="0.1" inputmode="decimal">
+    <div class="iunit">متر</div>
   </div>
-  <div class="card">
-    <span class="inp-label">أدخل الطول المقاس بالمتر</span>
-    <div class="inp-row">
-      <input type="number" id="skidDist" placeholder="مثال: 35" min="0.1" step="0.1" inputmode="decimal">
-      <div class="inp-unit">متر</div>
-    </div>
-  </div>
+</div>
 
-  <!-- 2. ROAD TYPE -->
-  <div class="sec">
-    <div class="sec-icon ic-teal">🛣️</div>
-    <div class="sec-text">
-      <h2>نوع وحالة الطريق</h2>
-      <p>اختر ما يُطابق وصف الطريق في مكان الحادثة</p>
-    </div>
+<div class="sec">
+  <div class="sic it">🛣️</div>
+  <div class="st"><h2>نوع وحالة الطريق</h2><p>ما يصف سطح الطريق في مكان الحادثة</p></div>
+</div>
+<div class="card">
+  <div class="pg2" id="roadPills">
+    <div class="pill" onclick="selectRoad(this,0.75)"><span class="pi">☀️</span><span class="pn">إسفلت جاف — ممتاز</span><span class="pv">μ = 0.75</span></div>
+    <div class="pill" onclick="selectRoad(this,0.65)"><span class="pi">☀️</span><span class="pn">إسفلت جاف — متوسط</span><span class="pv">μ = 0.65</span></div>
+    <div class="pill" onclick="selectRoad(this,0.50)"><span class="pi">🌦️</span><span class="pn">إسفلت مبلل — خفيف</span><span class="pv">μ = 0.50</span></div>
+    <div class="pill" onclick="selectRoad(this,0.35)"><span class="pi">🌧️</span><span class="pn">إسفلت مبلل — غزير</span><span class="pv">μ = 0.35</span></div>
+    <div class="pill" onclick="selectRoad(this,0.80)"><span class="pi">🏗️</span><span class="pn">خرسانة جافة</span><span class="pv">μ = 0.80</span></div>
+    <div class="pill" onclick="selectRoad(this,0.45)"><span class="pi">🌧️</span><span class="pn">خرسانة مبللة</span><span class="pv">μ = 0.45</span></div>
+    <div class="pill" onclick="selectRoad(this,0.35)"><span class="pi">🪨</span><span class="pn">حصى أو رمل</span><span class="pv">μ = 0.35</span></div>
+    <div class="pill" onclick="selectRoad(this,0.12)"><span class="pi">❄️</span><span class="pn">جليد أو ثلج</span><span class="pv">μ = 0.12</span></div>
   </div>
-  <div class="card">
-    <div class="pill-grid" id="roadPills">
-      <div class="pill" onclick="selectRoad(this,0.75)">
-        <span class="p-icon">☀️</span>
-        <span class="p-name">إسفلت جاف — ممتاز</span>
-        <span class="p-mu">احتكاك: 0.75</span>
-      </div>
-      <div class="pill" onclick="selectRoad(this,0.65)">
-        <span class="p-icon">☀️</span>
-        <span class="p-name">إسفلت جاف — متوسط</span>
-        <span class="p-mu">احتكاك: 0.65</span>
-      </div>
-      <div class="pill" onclick="selectRoad(this,0.50)">
-        <span class="p-icon">🌦️</span>
-        <span class="p-name">إسفلت مبلل — مطر خفيف</span>
-        <span class="p-mu">احتكاك: 0.50</span>
-      </div>
-      <div class="pill" onclick="selectRoad(this,0.35)">
-        <span class="p-icon">🌧️</span>
-        <span class="p-name">إسفلت مبلل — مطر غزير</span>
-        <span class="p-mu">احتكاك: 0.35</span>
-      </div>
-      <div class="pill" onclick="selectRoad(this,0.80)">
-        <span class="p-icon">🏗️</span>
-        <span class="p-name">خرسانة جافة</span>
-        <span class="p-mu">احتكاك: 0.80</span>
-      </div>
-      <div class="pill" onclick="selectRoad(this,0.45)">
-        <span class="p-icon">🌧️</span>
-        <span class="p-name">خرسانة مبللة</span>
-        <span class="p-mu">احتكاك: 0.45</span>
-      </div>
-      <div class="pill" onclick="selectRoad(this,0.35)">
-        <span class="p-icon">🪨</span>
-        <span class="p-name">حصى أو رمل</span>
-        <span class="p-mu">احتكاك: 0.35</span>
-      </div>
-      <div class="pill" onclick="selectRoad(this,0.12)">
-        <span class="p-icon">❄️</span>
-        <span class="p-name">جليد أو ثلج</span>
-        <span class="p-mu">احتكاك: 0.12</span>
-      </div>
+</div>
+
+<div class="sec">
+  <div class="sic ig">🚗</div>
+  <div class="st"><h2>نوع المركبة</h2><p>اختر النوع الأقرب للمركبة المعنية بالحادثة</p></div>
+</div>
+<div class="card">
+  <span class="lbl">مركبات خفيفة</span>
+  <div class="veh-scroll" id="vehLight">
+    <div class="veh-pill active" onclick="selectVehicle(this,'car','front',4)">
+      <span class="vi">🚗</span><span class="vn">سيارة</span><span class="vd">دفع أمامي</span>
+    </div>
+    <div class="veh-pill" onclick="selectVehicle(this,'car-r','rear',4)">
+      <span class="vi">🚗</span><span class="vn">سيارة</span><span class="vd">دفع خلفي</span>
+    </div>
+    <div class="veh-pill" onclick="selectVehicle(this,'suv','4wd',4)">
+      <span class="vi">🚙</span><span class="vn">SUV / 4×4</span><span class="vd">دفع رباعي</span>
+    </div>
+    <div class="veh-pill" onclick="selectVehicle(this,'pickup','rear',4)">
+      <span class="vi">🛻</span><span class="vn">بيك آب</span><span class="vd">دفع خلفي</span>
+    </div>
+    <div class="veh-pill" onclick="selectVehicle(this,'van','front',4)">
+      <span class="vi">🚐</span><span class="vn">فان / حافلة</span><span class="vd">دفع أمامي</span>
     </div>
   </div>
 
-  <!-- 3. TIRES -->
-  <div class="sec">
-    <div class="sec-icon ic-gold">🚗</div>
-    <div class="sec-text">
-      <h2>آثار الإطارات ونوع الدفع</h2>
-      <p>حدّد نوع دفع السيارة، ثم انقر على كل إطار ترك أثراً في مكان الحادثة</p>
+  <span class="lbl" style="margin-top:12px;">دراجات</span>
+  <div class="veh-scroll" id="vehMoto">
+    <div class="veh-pill" onclick="selectVehicle(this,'moto','moto',2)">
+      <span class="vi">🏍️</span><span class="vn">دراجة نارية</span><span class="vd">2 إطارات</span>
     </div>
-  </div>
-  <div class="card">
-
-    <!-- نوع الدفع -->
-    <span class="inp-label">أولاً — نوع دفع السيارة</span>
-    <div class="drive-grid">
-      <div class="drive-btn active" id="drv-front" onclick="selectDrive(this,'front')">
-        <span class="db-icon">⬆️</span>
-        <span class="db-name">دفع أمامي</span>
-        <span class="db-desc">الأكثر شيوعاً</span>
-      </div>
-      <div class="drive-btn" id="drv-rear" onclick="selectDrive(this,'rear')">
-        <span class="db-icon">⬇️</span>
-        <span class="db-name">دفع خلفي</span>
-        <span class="db-desc">سيارات كلاسيكية</span>
-      </div>
-      <div class="drive-btn" id="drv-4wd" onclick="selectDrive(this,'4wd')">
-        <span class="db-icon">🔄</span>
-        <span class="db-name">دفع رباعي</span>
-        <span class="db-desc">4×4 / AWD</span>
-      </div>
+    <div class="veh-pill" onclick="selectVehicle(this,'moped','moto',2)">
+      <span class="vi">🛵</span><span class="vn">سكوتر</span><span class="vd">2 إطارات</span>
     </div>
-
-    <!-- خريطة الإطارات -->
-    <span class="inp-label">ثانياً — انقر على الإطارات التي تركت أثراً على الأرض</span>
-    <div class="car-diagram">
-      <div class="car-diagram-label">🔼 مقدمة السيارة</div>
-      <div class="tire-axle-label">المحور الأمامي</div>
-      <div class="tire-map">
-        <div class="tire-check marked" id="t-fl" onclick="toggleTire('fl')">
-          <span class="tc-icon">🟡</span>
-          <span class="tc-lbl">أمامي يمين</span>
-        </div>
-        <div class="tire-check marked" id="t-fr" onclick="toggleTire('fr')">
-          <span class="tc-icon">🟡</span>
-          <span class="tc-lbl">أمامي يسار</span>
-        </div>
-      </div>
-      <div class="tire-axle-label" style="margin-top:10px;">المحور الخلفي</div>
-      <div class="tire-map">
-        <div class="tire-check marked" id="t-rl" onclick="toggleTire('rl')">
-          <span class="tc-icon">🟡</span>
-          <span class="tc-lbl">خلفي يمين</span>
-        </div>
-        <div class="tire-check marked" id="t-rr" onclick="toggleTire('rr')">
-          <span class="tc-icon">🟡</span>
-          <span class="tc-lbl">خلفي يسار</span>
-        </div>
-      </div>
-      <div class="car-diagram-label" style="margin-top:12px;margin-bottom:0;">🔽 مؤخرة السيارة</div>
+    <div class="veh-pill" onclick="selectVehicle(this,'trike','trike',3)">
+      <span class="vi">🛺</span><span class="vn">ثلاثية</span><span class="vd">3 إطارات</span>
     </div>
-
-    <!-- ملخص تلقائي -->
-    <div class="tire-summary" id="tireSummary">
-      جميع الإطارات الأربعة تركت آثاراً<br>
-      <span class="tire-factor-badge" id="tireFactorBadge">معامل الكبح: 1.00</span>
+    <div class="veh-pill" onclick="selectVehicle(this,'atv','4wd',4)">
+      <span class="vi">🏎️</span><span class="vn">ATV رباعية</span><span class="vd">4 إطارات</span>
     </div>
-
-  </div>
-
-  <!-- 4. GRADE -->
-  <div class="sec">
-    <div class="sec-icon ic-green" id="gradeSecIcon">📐</div>
-    <div class="sec-text">
-      <h2 id="gradeSecTitle">ميل الطريق</h2>
-      <p id="gradeSecDesc">هل الطريق مستوٍ أم يصعد أم ينحدر؟</p>
-    </div>
-  </div>
-  <div class="card">
-    <!-- Direction toggle -->
-    <div class="grade-row">
-      <button class="grade-btn active" onclick="setGrade('flat',this)">⏤ مستوٍ</button>
-      <button class="grade-btn" onclick="setGrade('up',this)">⬆ صاعد</button>
-      <button class="grade-btn" onclick="setGrade('down',this)">⬇ هابط</button>
-    </div>
-
-    <!-- Slope options — hidden when flat -->
-    <div id="gradeField" style="display:none;">
-
-      <!-- Visual estimation options -->
-      <span class="grade-est-label" id="gestLabel">اختر درجة الارتفاع تقريباً:</span>
-      <div class="grade-est-grid" id="gestGrid">
-        <div class="gest" onclick="selectGest(this, 2)">
-          <span class="g-icon" id="gicon0">🔼</span>
-          <span class="g-name" id="gname0">خفيف</span>
-          <span class="g-desc" id="gdesc0">تحس به قليلاً أثناء القيادة</span>
-          <span class="g-val">≈ 2%</span>
-        </div>
-        <div class="gest" onclick="selectGest(this, 5)">
-          <span class="g-icon" id="gicon1">⛰️</span>
-          <span class="g-name" id="gname1">متوسط</span>
-          <span class="g-desc" id="gdesc1">واضح للسائق والمشاة</span>
-          <span class="g-val">≈ 5%</span>
-        </div>
-        <div class="gest" onclick="selectGest(this, 8)">
-          <span class="g-icon" id="gicon2">🏔️</span>
-          <span class="g-name" id="gname2">قوي</span>
-          <span class="g-desc" id="gdesc2">صعب المشي عليه</span>
-          <span class="g-val">≈ 8%</span>
-        </div>
-        <div class="gest" onclick="selectGest(this, 12)">
-          <span class="g-icon" id="gicon3">🗻</span>
-          <span class="g-name" id="gname3">حاد جداً</span>
-          <span class="g-desc" id="gdesc3">جبلي أو طريق وعر</span>
-          <span class="g-val">≈ 12%</span>
-        </div>
-      </div>
-
-      <!-- OR: manual entry -->
-      <div class="or-divider"><span id="orDividerTxt">أو أدخل نسبة الارتفاع يدوياً إن عرفتها</span></div>
-      <span class="inp-label" id="gradeInpLabel">نسبة الارتفاع بالمئة (اختياري)</span>
-      <div class="inp-row">
-        <input type="number" id="gradeVal" placeholder="مثال: 5" min="0" max="30" step="0.5" inputmode="decimal" oninput="clearGest()">
-        <div class="inp-unit">%</div>
-      </div>
+    <div class="veh-pill" onclick="selectVehicle(this,'bicycle','bicycle',2)">
+      <span class="vi">🚲</span><span class="vn">دراجة هوائية</span><span class="vd">2 إطارات</span>
     </div>
   </div>
 
-  <button class="calc-btn" onclick="calculate()">⚡ احسب السرعة الآن</button>
-
-  <!-- ─── RESULTS ─── -->
-  <div class="results" id="results">
-
-    <div class="sec" style="margin-top:24px;">
-      <div class="sec-icon ic-blue">📊</div>
-      <div class="sec-text"><h2>نتائج التحليل</h2></div>
+  <span class="lbl" style="margin-top:12px;">مركبات ثقيلة</span>
+  <div class="veh-scroll" id="vehHeavy">
+    <div class="veh-pill" onclick="selectVehicle(this,'truck','rear',4)">
+      <span class="vi">🚚</span><span class="vn">شاحنة صغيرة</span><span class="vd">4 إطارات</span>
     </div>
-
-    <div class="speed-hero">
-      <div class="hero-lbl">السرعة المقدّرة قبل الحادثة</div>
-      <div class="speed-num" id="resKmh">0</div>
-      <div class="speed-sub">كيلومتر في الساعة</div>
-      <div class="gauge-wrap">
-        <div class="gauge-track"><div class="gauge-fill" id="gaugeFill"></div></div>
-        <div class="gauge-ticks"><span>0</span><span>60</span><span>120</span><span>180+</span></div>
-      </div>
-      <div class="class-badge" id="classBadge"></div>
-      <!-- Speed range considering grade uncertainty -->
-      <div class="speed-range" id="speedRange"></div>
+    <div class="veh-pill" onclick="selectVehicle(this,'bigtruck','rear',6)">
+      <span class="vi">🚛</span><span class="vn">شاحنة كبيرة</span><span class="vd">6+ إطارات</span>
     </div>
-
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="sv" id="resMs">--</div>
-        <div class="su">م / ثانية</div>
-        <div class="sl">السرعة اللحظية</div>
-      </div>
-      <div class="stat-card">
-        <div class="sv" id="resMph">--</div>
-        <div class="su">ميل / ساعة</div>
-        <div class="sl">للمرجع الدولي</div>
-      </div>
-      <div class="stat-card">
-        <div class="sv" id="resBrake">--</div>
-        <div class="su">ثانية</div>
-        <div class="sl">مدة الكبح</div>
-      </div>
-      <div class="stat-card">
-        <div class="sv" id="resMu">--</div>
-        <div class="su">معامل μ</div>
-        <div class="sl">الاحتكاك الفعلي</div>
-      </div>
+    <div class="veh-pill" onclick="selectVehicle(this,'bus','rear',6)">
+      <span class="vi">🚌</span><span class="vn">حافلة كبيرة</span><span class="vd">6 إطارات</span>
     </div>
-
-    <div class="formula-card">
-      <h3>🔬 كيف تمت الحسابات؟</h3>
-      <div class="fstep">
-        <div class="fnum">1</div>
-        <div class="ftxt"><strong>مبدأ تحويل الطاقة:</strong> عند الكبح تتحوّل طاقة الحركة إلى حرارة عن طريق احتكاك الإطار بالطريق</div>
-      </div>
-      <div class="fstep">
-        <div class="fnum">2</div>
-        <div class="ftxt" id="fstep2">...</div>
-      </div>
-      <div class="fstep">
-        <div class="fnum">3</div>
-        <div class="ftxt" id="fstep3">...</div>
-      </div>
-      <div class="formula-hl" id="formulaHL">v = √(2 × μ × g × d)</div>
+    <div class="veh-pill" onclick="selectVehicle(this,'minibus','front',4)">
+      <span class="vi">🚎</span><span class="vn">ميني باص</span><span class="vd">4 إطارات</span>
     </div>
-
-    <div class="warn">
-      <span class="wi">⚠️</span>
-      <div class="wt">
-        <strong>ملاحظة علمية:</strong> هذه النتيجة هي <strong>الحد الأدنى</strong> للسرعة الفعلية. السرعة الحقيقية قد تكون أعلى بسبب وقت رد فعل السائق قبل الكبح، وفقدان جزء من السرعة أثناء الاصطدام. هامش الخطأ المتوقع: <strong>±10 إلى 15%</strong>.
-      </div>
-    </div>
-
-  </div><!-- /results -->
-
-  <!-- COPYRIGHT FOOTER -->
-  <div class="copyright">
-    <div class="copy-logo">⚖️</div>
-    <div class="copy-name">إسماعيل منهو</div>
-    <div class="copy-title">خبير تحليل الحوادث المرورية</div>
-    <div class="copy-line">© جميع الحقوق محفوظة — Ismail Manhou 2025</div>
   </div>
 
-</div><!-- /main -->
+  <span class="lbl" style="margin-top:12px;">مركبات خاصة</span>
+  <div class="veh-scroll" id="vehSpec">
+    <div class="veh-pill" onclick="selectVehicle(this,'ambulance','front',4)">
+      <span class="vi">🚑</span><span class="vn">سيارة إسعاف</span><span class="vd">4 إطارات</span>
+    </div>
+    <div class="veh-pill" onclick="selectVehicle(this,'police','rear',4)">
+      <span class="vi">🚓</span><span class="vn">سيارة شرطة</span><span class="vd">4 إطارات</span>
+    </div>
+    <div class="veh-pill" onclick="selectVehicle(this,'taxi','front',4)">
+      <span class="vi">🚕</span><span class="vn">سيارة أجرة</span><span class="vd">4 إطارات</span>
+    </div>
+    <div class="veh-pill" onclick="selectVehicle(this,'tractor','rear',4)">
+      <span class="vi">🚜</span><span class="vn">جرار / تراكتور</span><span class="vd">4 إطارات</span>
+    </div>
+  </div>
 
-<script>
-let selectedMu     = null;
-let gradeMode      = 'flat';
+  <div style="margin-top:13px;">
+    <span class="lbl" id="tireMapLbl">انقر على كل إطار ترك أثراً على الأرض</span>
+    <div id="tireMap"></div>
+    <div class="tsum" id="tireSummary">جميع الإطارات تركت آثاراً</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sic igr" id="gSIC">📐</div>
+  <div class="st"><h2 id="gTitle">ميل الطريق</h2><p id="gDesc">هل الطريق مستوٍ أم يصعد أم ينحدر?</p></div>
+</div>
+<div class="card">
+  <div class="grade-row">
+    <button class="gbtn active" onclick="setGrade('flat',this)">⏤ مستوٍ</button>
+    <button class="gbtn" onclick="setGrade('up',this)">⬆ صاعد</button>
+    <button class="gbtn" onclick="setGrade('down',this)">⬇ هابط</button>
+  </div>
+  <div id="gradeField" style="display:none;">
+    <span class="lbl" id="gLbl">اختر درجة الارتفاع:</span>
+    <div class="gest-grid" id="gestGrid">
+      <div class="pill" onclick="selectGest(this,2)"><span class="pi" id="gi0">🔼</span><span class="pn" id="gn0">خفيف</span><span class="pd" id="gd0">تحس به أثناء القيادة</span><span class="pv">≈ 2%</span></div>
+      <div class="pill" onclick="selectGest(this,5)"><span class="pi" id="gi1">⛰️</span><span class="pn" id="gn1">متوسط</span><span class="pd" id="gd1">واضح للسائق والمشاة</span><span class="pv">≈ 5%</span></div>
+      <div class="pill" onclick="selectGest(this,8)"><span class="pi" id="gi2">🏔️</span><span class="pn" id="gn2">قوي</span><span class="pd" id="gd2">صعب المشي عليه</span><span class="pv">≈ 8%</span></div>
+      <div class="pill" onclick="selectGest(this,12)"><span class="pi" id="gi3">🗻</span><span class="pn" id="gn3">حاد جداً</span><span class="pd" id="gd3">جبلي أو وعر</span><span class="pv">≈ 12%</span></div>
+    </div>
+    <div class="or-div"><span id="orTxt">أو أدخل النسبة يدوياً</span></div>
+    <span class="lbl" id="gInpLbl">النسبة بالمئة</span>
+    <div class="irow">
+      <input type="number" id="gradeVal" placeholder="مثال: 5" min="0" max="30" step="0.5"
+             inputmode="decimal" oninput="clearGest()">
+      <div class="iunit">%</div>
+    </div>
+  </div>
+</div>
+
+<button class="calc-btn" onclick="calculate()">⚡ احسب السرعة الآن</button>
+
+<div class="results" id="results">
+  <div class="sec" style="margin-top:20px;">
+    <div class="sic ib">📊</div>
+    <div class="st"><h2>نتائج التحليل</h2></div>
+  </div>
+
+  <div class="speed-hero">
+    <div class="hlbl">السرعة المقدّرة قبل الحادثة</div>
+    <div class="spnum" id="resKmh">0</div>
+    <div class="spsub">كيلومتر في الساعة</div>
+    <div class="gauge-wrap">
+      <div class="gauge-track"><div class="gauge-fill" id="gaugeFill"></div></div>
+      <div class="gauge-ticks"><span>0</span><span>60</span><span>120</span><span>180+</span></div>
+    </div>
+    <div class="cbadge" id="classBadge"></div>
+    <div class="srange" id="speedRange" style="display:none;"></div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="sc"><div class="sv" id="resMs">--</div><div class="su">م / ثانية</div><div class="sl">السرعة اللحظية</div></div>
+    <div class="sc"><div class="sv" id="resMph">--</div><div class="su">ميل / ساعة</div><div class="sl">المرجع الدولي</div></div>
+    <div class="sc"><div class="sv" id="resBrake">--</div><div class="su">ثانية</div><div class="sl">مدة الكبح</div></div>
+    <div class="sc"><div class="sv" id="resMu">--</div><div class="su">معامل μ</div><div class="sl">الاحتكاك الفعلي</div></div>
+  </div>
+
+  <div class="fcrd">
+    <h3>🔬 تفاصيل الحساب</h3>
+    <div class="fstep"><div class="fnum">1</div><div class="ftxt"><strong>مبدأ الطاقة:</strong> طاقة الحركة تتحوّل إلى حرارة عبر الاحتكاك عند الكبح</div></div>
+    <div class="fstep"><div class="fnum">2</div><div class="ftxt" id="fs2">...</div></div>
+    <div class="fstep"><div class="fnum">3</div><div class="ftxt" id="fs3">...</div></div>
+    <div class="fstep"><div class="fnum">4</div><div class="ftxt" id="fs4">...</div></div>
+    <div class="fhl" id="formulaHL">v = √(2 × μ × g × d)</div>
+  </div>
+
+  <div class="warn">
+    <span class="wi">⚠️</span>
+    <div class="wt">
+      <strong>ملاحظة علمية:</strong> النتيجة تمثّل <strong>الحد الأدنى</strong> للسرعة الفعلية.
+      قد تكون أعلى بسبب وقت رد الفعل قبل الكبح وفقدان السرعة أثناء الاصطدام.
+      هامش الخطأ: <strong>±10 إلى 15%</strong>.
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="flogo">⚖️</div>
+  <div class="fname">إسماعيل منهو</div>
+  <div class="ftitle">خبير تحليل الحوادث المرورية</div>
+  <div class="fcopy">© جميع الحقوق محفوظة — Ismail Manhou 2026</div>
+</div>
+
+</div><script>
+// ══════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════
+let selectedMu      = null;
+let gradeMode       = 'flat';
 let selectedGestVal = null;
-let deferredPrompt = null;
+let deferredPrompt  = null;
 
-// ── نظام الإطارات الاحترافي ──
-let driveType = 'front';
-let tireMarks = { fl:true, fr:true, rl:true, rr:true };
+let vehicleKey  = 'car';
+let driveMode   = 'front';   
+let wheelCount  = 4;
+let tireState   = {};
 
-const TIRE_WEIGHTS = {
-  front: { fl:0.30, fr:0.30, rl:0.20, rr:0.20 },
-  rear:  { fl:0.22, fr:0.22, rl:0.28, rr:0.28 },
-  '4wd': { fl:0.25, fr:0.25, rl:0.25, rr:0.25 }
+const W = {
+  front:   { fl:0.335, fr:0.335, rl:0.165, rr:0.165 },
+  rear:    { fl:0.27,  fr:0.27,  rl:0.23,  rr:0.23  },
+  '4wd':   { fl:0.28,  fr:0.28,  rl:0.22,  rr:0.22  },
+  moto:    { front:0.70, rear:0.30 },
+  trike:   { fl:0.30, fr:0.30, rear:0.40 },
+  bicycle: { front:0.60, rear:0.40 },
+  heavy6:  { ffl:0.18, ffr:0.18, mrl:0.16, mrr:0.16, rrl:0.16, rrr:0.16 }
 };
 
-function selectDrive(el, type){
-  document.querySelectorAll('.drive-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  driveType = type;
-  updateTireSummary();
-}
+const TNAMES = {
+  fl:'الأمامي الأيمن', fr:'الأمامي الأيسر',
+  rl:'الخلفي الأيمن',  rr:'الخلفي الأيسر',
+  front:'الأمامي', rear:'الخلفي',
+  ffl:'أمامي يمين', ffr:'أمامي يسار',
+  mrl:'أوسط يمين', mrr:'أوسط يسار',
+  rrl:'خلفي يمين', rrr:'خلفي يسار'
+};
 
-function toggleTire(id){
-  tireMarks[id] = !tireMarks[id];
-  const el = document.getElementById('t-' + id);
-  if(tireMarks[id]){
-    el.className = 'tire-check marked';
-    el.querySelector('.tc-icon').textContent = '🟡';
-  } else {
-    el.className = 'tire-check no-mark';
-    el.querySelector('.tc-icon').textContent = '⚫';
-  }
-  updateTireSummary();
-}
-
-function getTireFactor(){
-  const w = TIRE_WEIGHTS[driveType];
-  let factor = 0;
-  for(const id of ['fl','fr','rl','rr']){
-    if(tireMarks[id]) factor += w[id];
-  }
-  return Math.max(factor, 0.10);
-}
-
-function updateTireSummary(){
-  const marked  = ['fl','fr','rl','rr'].filter(id => tireMarks[id]);
-  const count   = marked.length;
-  const factor  = getTireFactor();
-  const dNames  = { front:'دفع أمامي', rear:'دفع خلفي', '4wd':'دفع رباعي' };
-  const tNames  = { fl:'الأمامي الأيمن', fr:'الأمامي الأيسر',
-                    rl:'الخلفي الأيمن',  rr:'الخلفي الأيسر' };
-  let posText;
-  if(count === 4)      posText = 'جميع الإطارات الأربعة تركت آثاراً';
-  else if(count === 0) posText = '⚠ لم يُحدَّد أي إطار — تحقق من الاختيار';
-  else                 posText = 'الإطارات: ' + marked.map(id => tNames[id]).join(' + ');
-  document.getElementById('tireSummary').innerHTML =
-    posText + '<br>نوع الدفع: <strong>' + dNames[driveType] + '</strong><br>' +
-    '<span class="tire-factor-badge">معامل الكبح الفعلي: ' + factor.toFixed(2) + '</span>';
-}
-
-// PWA
+// ══════════════════════════════════════════════
+//  PWA
+// ══════════════════════════════════════════════
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault(); deferredPrompt = e;
   document.getElementById('installBanner').classList.add('show');
 });
-window.addEventListener('appinstalled', () => {
-  document.getElementById('installBanner').style.display = 'none';
-});
-(function checkIOS(){
-  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  if(isIOS && !window.navigator.standalone){
+window.addEventListener('appinstalled', () =>
+  document.getElementById('installBanner').style.display='none');
+(function(){
+  if(/iphone|ipad|ipod/i.test(navigator.userAgent) && !window.navigator.standalone){
     document.getElementById('installBanner').classList.add('show');
-    document.getElementById('installBtn').style.display = 'none';
+    document.getElementById('installBtn').style.display='none';
   }
 })();
 async function handleInstall(){
-  if(deferredPrompt){
-    deferredPrompt.prompt();
-    const r = await deferredPrompt.userChoice;
-    deferredPrompt = null;
-    if(r.outcome === 'accepted') document.getElementById('installBanner').style.display = 'none';
-  }
+  if(!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const r = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  if(r.outcome==='accepted')
+    document.getElementById('installBanner').style.display='none';
 }
 
+// ══════════════════════════════════════════════
+//  ROAD
+// ══════════════════════════════════════════════
 function selectRoad(el, mu){
-  document.querySelectorAll('#roadPills .pill').forEach(p => p.classList.remove('active'));
-  el.classList.add('active'); selectedMu = mu;
+  document.querySelectorAll('#roadPills .pill').forEach(p=>
+    p.classList.remove('ab','ag','at'));
+  el.classList.add('ab');
+  selectedMu = mu;
 }
 
-
-
-function setGrade(mode, el){
-  gradeMode = mode;
-  document.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('active'));
+// ══════════════════════════════════════════════
+//  VEHICLE
+// ══════════════════════════════════════════════
+function selectVehicle(el, vKey, dMode, wCount){
+  document.querySelectorAll('.veh-pill').forEach(p=>p.classList.remove('active'));
   el.classList.add('active');
-  document.getElementById('gradeField').style.display = mode === 'flat' ? 'none' : 'block';
-  if(mode === 'flat'){ selectedGestVal = null; }
+  vehicleKey = vKey;
+  driveMode  = dMode;
+  wheelCount = wCount;
 
-  // ── تحديث النصوص حسب الاتجاه ──
-  const isUp = mode === 'up';
-  const isDown = mode === 'down';
+  const wMap = getWeightMap();
+  tireState = {};
+  Object.keys(wMap).forEach(k => tireState[k] = true);
 
-  const labels = {
-    flat: {
-      title:'ميل الطريق', desc:'هل الطريق مستوٍ أم يصعد أم ينحدر؟',
-      icon:'📐', gestLbl:'', inpLbl:'', orTxt:''
-    },
-    up: {
-      title:'ارتفاع الطريق',
-      desc:'الطريق يصعد — يزيد مقاومة الحركة ويرفع السرعة المحسوبة',
-      icon:'🏔️', gestLbl:'اختر درجة الارتفاع تقريباً:',
-      inpLbl:'نسبة الارتفاع بالمئة (اختياري)', orTxt:'أو أدخل نسبة الارتفاع يدوياً إن عرفتها',
-      g:['🔼','🔼','⛰️','🗻'],
-      names:['ارتفاع خفيف','ارتفاع متوسط','ارتفاع قوي','ارتفاع حاد جداً'],
-      descs:['تحس به قليلاً أثناء القيادة','واضح للسائق والمشاة','صعب الصعود مشياً','طريق جبلي شديد الارتفاع']
-    },
-    down: {
-      title:'انحدار الطريق',
-      desc:'الطريق ينحدر — يقلل مقاومة الكبح ويخفض السرعة المحسوبة',
-      icon:'📉', gestLbl:'اختر درجة الانحدار تقريباً:',
-      inpLbl:'نسبة الانحدار بالمئة (اختياري)', orTxt:'أو أدخل نسبة الانحدار يدوياً إن عرفتها',
-      g:['📉','📉','🌊','⚠️'],
-      names:['انحدار خفيف','انحدار متوسط','انحدار قوي','انحدار حاد جداً'],
-      descs:['تحس به قليلاً أثناء القيادة','واضح للسائق والمشاة','صعب الهبوط مشياً','طريق جبلي شديد الانحدار']
-    }
+  renderTireMap();
+}
+
+function getWeightMap(){
+  if(driveMode === 'moto' || vehicleKey === 'moped')   return W.moto;
+  if(driveMode === 'trike')  return W.trike;
+  if(driveMode === 'bicycle') return W.bicycle;
+  if(wheelCount >= 6)        return W.heavy6;
+  if(driveMode === 'rear')   return W.rear;
+  if(driveMode === '4wd')    return W['4wd'];
+  return W.front;
+}
+
+// ══════════════════════════════════════════════
+//  TIRE MAP RENDERER
+// ══════════════════════════════════════════════
+function renderTireMap(){
+  const map = document.getElementById('tireMap');
+  const wMap = getWeightMap();
+  const keys = Object.keys(wMap);
+  let html = '';
+
+  if(driveMode === 'moto' || vehicleKey === 'moped'){
+    html = `<div class="dir-lbl">🔼 المقدمة</div>
+      <div class="tmap2">
+        ${tBtn('front','🏍️','الأمامي',wMap.front,'مو')}
+        ${tBtn('rear','🏍️','الخلفي',wMap.rear,'مو')}
+      </div>
+      <div class="dir-lbl">🔽 المؤخرة</div>`;
+
+  } else if(vehicleKey === 'bicycle'){
+    html = `<div class="dir-lbl">🔼 المقدمة</div>
+      <div class="tmap2">
+        ${tBtn('front','🚲','الأمامي',wMap.front,'هو')}
+        ${tBtn('rear','🚲','الخلفي',wMap.rear,'هو')}
+      </div>
+      <div class="dir-lbl">🔽 المؤخرة</div>`;
+
+  } else if(driveMode === 'trike'){
+    html = `<div class="dir-lbl">🔼 المقدمة</div>
+      <div class="axle-lbl">المحور الأمامي</div>
+      <div class="tmap3f">
+        ${tBtn('fl','🛺','أمامي يمين',wMap.fl,'ثع')}
+        ${tBtn('fr','🛺','أمامي يسار',wMap.fr,'ثع')}
+      </div>
+      <div class="axle-lbl" style="margin-top:7px">المحور الخلفي</div>
+      <div class="tmap1c">${tBtn('rear','🛺','خلفي وسط',wMap.rear,'ثع')}</div>
+      <div class="dir-lbl">🔽 المؤخرة</div>`;
+
+  } else if(wheelCount >= 6){
+    html = `<div class="dir-lbl">🔼 المقدمة</div>
+      <div class="axle-lbl">المحور الأمامي</div>
+      <div class="tmap4">
+        ${tBtn('ffl','🚛','أمامي يمين',wMap.ffl,'شح')}
+        ${tBtn('ffr','🚛','أمامي يسار',wMap.ffr,'شح')}
+      </div>
+      <div class="axle-lbl" style="margin-top:7px">المحور الأوسط</div>
+      <div class="tmap4">
+        ${tBtn('mrl','🚛','أوسط يمين',wMap.mrl,'شح')}
+        ${tBtn('mrr','🚛','أوسط يسار',wMap.mrr,'شح')}
+      </div>
+      <div class="axle-lbl" style="margin-top:7px">المحور الخلفي</div>
+      <div class="tmap4">
+        ${tBtn('rrl','🚛','خلفي يمين',wMap.rrl,'شح')}
+        ${tBtn('rrr','🚛','خلفي يسار',wMap.rrr,'شح')}
+      </div>
+      <div class="dir-lbl">🔽 المؤخرة</div>`;
+
+  } else {
+    const pct = k => Math.round(wMap[k]*100)+'%';
+    const icon = vehicleKey==='moped'?'🛵':
+                 vehicleKey==='suv'||driveMode==='4wd'?'🚙':
+                 vehicleKey==='pickup'||vehicleKey==='truck'?'🛻':
+                 vehicleKey==='van'||vehicleKey==='minibus'?'🚐':
+                 vehicleKey==='ambulance'?'🌅':
+                 vehicleKey==='police'?'🚓':'🚗';
+    html = `<div class="dir-lbl">🔼 مقدمة السيارة</div>
+      <div class="axle-lbl">المحور الأمامي — يتحمل ${Math.round((wMap.fl+wMap.fr)*100)}% من قوة الكبح</div>
+      <div class="tmap4">
+        ${tBtn('fl',icon,'أمامي يمين',wMap.fl,'4و')}
+        ${tBtn('fr',icon,'أمامي يسار',wMap.fr,'4و')}
+      </div>
+      <div class="axle-lbl" style="margin-top:7px">المحور الخلفي — يتحمل ${Math.round((wMap.rl+wMap.rr)*100)}% من قوة الكبح</div>
+      <div class="tmap4">
+        ${tBtn('rl',icon,'خلفي يمين',wMap.rl,'4و')}
+        ${tBtn('rr',icon,'خلفي يسار',wMap.rr,'4و')}
+      </div>
+      <div class="dir-lbl">🔽 مؤخرة السيارة</div>`;
+  }
+
+  map.innerHTML = html;
+
+  map.querySelectorAll('.tb').forEach(btn => {
+    const id = btn.dataset.id;
+    btn.onclick = () => toggleTire(id);
+    refreshTireBtn(btn, id);
+  });
+
+  updateTireSummary();
+}
+
+function tBtn(id, icon, label, weight, vtype){
+  const pct = Math.round(weight*100);
+  return `<div class="tb on" data-id="${id}" data-icon="${icon}">
+    <span class="ti">${icon}</span>
+    <span class="tl">${label}</span>
+    <span class="tw">وزن الكبح: ${pct}%</span>
+  </div>`;
+}
+
+function toggleTire(id){
+  tireState[id] = !tireState[id];
+  const btn = document.querySelector(`.tb[data-id="${id}"]`);
+  if(btn) refreshTireBtn(btn, id);
+  updateTireSummary();
+}
+
+function refreshTireBtn(btn, id){
+  const on = tireState[id];
+  btn.className = 'tb ' + (on ? 'on' : 'off');
+  btn.querySelector('.ti').textContent = on ? (btn.dataset.icon || '🟡') : '⚫';
+}
+
+function getTireFactor(){
+  const wMap = getWeightMap();
+  let f = 0;
+  Object.keys(wMap).forEach(k => {
+    if(tireState[k]) f += wMap[k];
+  });
+  return Math.max(f, 0.05);
+}
+
+function updateTireSummary(){
+  const wMap    = getWeightMap();
+  const total   = Object.keys(wMap).length;
+  const marked  = Object.keys(tireState).filter(k => tireState[k]);
+  const count   = marked.length;
+  const factor  = getTireFactor();
+
+  const vLabel = {
+    car:'سيارة','car-r':'سيارة دفع خلفي',suv:'SUV رباعي',
+    pickup:'بيك آب',van:'فان/حافلة',
+    moto:'دراجة نارية',moped:'سكوتر',trike:'ثلاثية',
+    atv:'ATV رباعية',bicycle:'دراجة هوائية',
+    truck:'شاحنة صغيرة',bigtruck:'شاحنة كبيرة',
+    bus:'حافلة كبيرة',minibus:'ميني باص',
+    ambulance:'إسعاف',police:'شرطة',taxi:'أجرة',tractor:'تراكتور'
   };
 
-  const cfg = labels[mode];
-  document.getElementById('gradeSecTitle').textContent = cfg.title;
-  document.getElementById('gradeSecDesc').textContent  = cfg.desc;
-  document.getElementById('gradeSecIcon').textContent  = cfg.icon;
+  let posText;
+  if(count === total) posText = 'جميع الإطارات تركت آثاراً';
+  else if(count === 0) posText = '⚠ لم يُحدَّد أي إطار';
+  else posText = 'الإطارات: ' + marked.map(k => TNAMES[k]||k).join(' + ');
 
-  if(mode !== 'flat'){
-    document.getElementById('gestLabel').textContent   = cfg.gestLbl;
-    document.getElementById('gradeInpLabel').textContent = cfg.inpLbl;
-    document.getElementById('orDividerTxt').textContent  = cfg.orTxt;
+  document.getElementById('tireSummary').innerHTML =
+    `<strong>${vLabel[vehicleKey]||vehicleKey}</strong> — ${posText}<br>
+     <span class="fbadge">معامل كبح الإطارات: ${factor.toFixed(3)}</span>`;
+}
+
+// ══════════════════════════════════════════════
+//  GRADE CONFIGURATION
+// ══════════════════════════════════════════════
+function setGrade(mode, el){
+  gradeMode = mode;
+  document.querySelectorAll('.gbtn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('gradeField').style.display = mode==='flat'?'none':'block';
+  if(mode==='flat') selectedGestVal=null;
+
+  const cfg = {
+    flat:{ icon:'📐', title:'ميل الطريق', desc:'هل الطريق مستوٍ أم يصعد أم ينحدر؟' },
+    up:{  icon:'🏔️', title:'ارتفاع الطريق', desc:'الطريق يصعد — يزيد مقاومة الحركة',
+          gl:'درجة الارتفاع:', or:'أو أدخل نسبة الارتفاع يدوياً', inp:'نسبة الارتفاع %',
+          gi:['🔼','⛰️','🏔️','🗻'], gn:['ارتفاع خفيف','ارتفاع متوسط','ارتفاع قوي','ارتفاع حاد'],
+          gd:['تحس به أثناء القيادة','واضح للسائق','صعب الصعود مشياً','جبلي شديد'] },
+    down:{ icon:'📉', title:'انحدار الطريق', desc:'الطريق ينحدر — يقلل مقاومة الكبح',
+           gl:'درجة الانحدار:', or:'أو أدخل نسبة الانحدار يدوياً', inp:'نسبة الانحدار %',
+           gi:['📉','📉','🌊','⚠️'], gn:['انحدار خفيف','انحدار متوسط','انحدار قوي','انحدار حاد'],
+           gd:['تحس به أثناء القيادة','واضح للسائق','صعب الهبوط مشياً','جبلي شديد'] }
+  };
+  const c=cfg[mode];
+  document.getElementById('gSIC').textContent  = c.icon;
+  document.getElementById('gTitle').textContent = c.title;
+  document.getElementById('gDesc').textContent  = c.desc;
+  if(mode!=='flat'){
+    document.getElementById('gLbl').textContent    = c.gl;
+    document.getElementById('orTxt').textContent   = c.or;
+    document.getElementById('gInpLbl').textContent = c.inp;
     for(let i=0;i<4;i++){
-      document.getElementById('gicon'+i).textContent = cfg.g[i];
-      document.getElementById('gname'+i).textContent = cfg.names[i];
-      document.getElementById('gdesc'+i).textContent = cfg.descs[i];
+      document.getElementById('gi'+i).textContent=c.gi[i];
+      document.getElementById('gn'+i).textContent=c.gn[i];
+      document.getElementById('gd'+i).textContent=c.gd[i];
     }
   }
 }
 
 function selectGest(el, val){
-  document.querySelectorAll('.gest').forEach(g => g.classList.remove('active'));
-  el.classList.add('active');
-  selectedGestVal = val;
-  document.getElementById('gradeVal').value = '';
+  document.querySelectorAll('#gestGrid .pill').forEach(p=>p.classList.remove('ab','ag','at'));
+  el.classList.add('at');
+  selectedGestVal=val;
+  document.getElementById('gradeVal').value='';
 }
-
 function clearGest(){
-  document.querySelectorAll('.gest').forEach(g => g.classList.remove('active'));
-  selectedGestVal = null;
+  document.querySelectorAll('#gestGrid .pill').forEach(p=>p.classList.remove('ab','ag','at'));
+  selectedGestVal=null;
 }
 
 function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
 }
 
 function animVal(id, from, to, dur, dec=0){
-  const el = document.getElementById(id);
-  const s = performance.now();
+  const el=document.getElementById(id);
+  const s=performance.now();
   (function step(now){
-    const p = Math.min((now - s) / dur, 1);
-    const e = 1 - Math.pow(1 - p, 3);
-    el.textContent = (from + (to - from) * e).toFixed(dec);
-    if(p < 1) requestAnimationFrame(step);
+    const p=Math.min((now-s)/dur,1);
+    const e=1-Math.pow(1-p,3);
+    el.textContent=(from+(to-from)*e).toFixed(dec);
+    if(p<1) requestAnimationFrame(step);
   })(performance.now());
 }
 
+// ══════════════════════════════════════════════
+//  CALCULATE FUNCTION
+// ══════════════════════════════════════════════
 function calculate(){
+  const d=parseFloat(document.getElementById('skidDist').value);
+  if(!d||d<=0){ showToast('⚠ أدخل طول أثر الفرامل'); return; }
+  if(selectedMu===null){ showToast('⚠ اختر نوع وحالة الطريق'); return; }
+  const markedKeys=Object.keys(tireState).filter(k=>tireState[k]);
+  if(markedKeys.length===0){ showToast('⚠ اختر إطاراً واحداً على الأقل'); return; }
 
-  const d = parseFloat(document.getElementById('skidDist').value);
-  if(!d || d <= 0){ showToast('⚠ أدخل طول أثر الفرامل بالمتر'); return; }
-  if(selectedMu === null){ showToast('⚠ اختر نوع وحالة الطريق'); return; }
+  const g=9.81;
 
-  const g = 9.81;
+  // الحسابات المتقدمة للانحدار والميول
+  let gradePercent=0, gradeIsEst=false;
+  if(gradeMode!=='flat'){
+    const mv=parseFloat(document.getElementById('gradeVal').value);
+    if(selectedGestVal !== null){ gradePercent=selectedGestVal; gradeIsEst=true; }
+    else if(!isNaN(mv)&&mv>=0) gradePercent=mv;
+  }
+  const gradeD=gradePercent/100;
+  let muBase=selectedMu;
+  if(gradeMode==='up')        muBase=selectedMu+gradeD;
+  else if(gradeMode==='down') muBase=selectedMu-gradeD;
+  if(muBase<=0){ showToast('⚠ قيمة الانحدار غير منطقية مع نوع الطريق'); return; }
 
-  // ── الانحدار ──
-  let gradePercent = 0;
-  let gradeIsEstimate = false;
+  // تطبيق مصفوفة الحمل الديناميكي للإطارات
+  const tireFactor=getTireFactor();
+  const muEff=muBase*tireFactor;
 
-  if(gradeMode !== 'flat'){
-    const manualVal = parseFloat(document.getElementById('gradeVal').value);
-    if(selectedGestVal !== null){
-      gradePercent = selectedGestVal;
-      gradeIsEstimate = true;
-    } else if(!isNaN(manualVal) && manualVal >= 0){
-      gradePercent = manualVal;
-      gradeIsEstimate = false;
-    }
+  // معادلات الفيزياء الكلاسيكية لحساب الحركة والسرعة
+  const vMs   =Math.sqrt(2*muEff*g*d);
+  const vKmh  =vMs*3.6;
+  const vMph  =vMs*2.237;
+  const tBrake=vMs/(muEff*g);
+
+  let rangeText='';
+  if(gradeIsEst&&gradeMode!=='flat'){
+    const lo=Math.max(0,(gradePercent-2)/100);
+    const hi=(gradePercent+2)/100;
+    const muLo=(gradeMode==='up'?selectedMu+lo:selectedMu-hi)*tireFactor;
+    const muHi=(gradeMode==='up'?selectedMu+hi:selectedMu-lo)*tireFactor;
+    const vLo=Math.sqrt(2*Math.max(muLo,0.01)*g*d)*3.6;
+    const vHi=Math.sqrt(2*Math.max(muHi,0.01)*g*d)*3.6;
+    rangeText=`نطاق السرعة المتوقع: <strong>${Math.min(vLo,vHi).toFixed(0)} — ${Math.max(vLo,vHi).toFixed(0)} كم/س</strong>`;
   }
 
-  const gradeDecimal = gradePercent / 100;
-
-  // ── تعديل الاحتكاك حسب اتجاه الانحدار (علمياً) ──
-  let muEff = selectedMu;
-  if(gradeMode === 'up')        muEff = selectedMu + gradeDecimal;
-  else if(gradeMode === 'down') muEff = selectedMu - gradeDecimal;
-
-  if(muEff <= 0){ showToast('⚠ قيمة الانحدار غير منطقية مع نوع الطريق المختار'); return; }
-
-  // ── تأثير عدد الإطارات (معاملات واقعية) ──
-  // معامل الكبح من نظام الإطارات الاحترافي
-  const tireFactor = getTireFactor();
-  muEff *= tireFactor;
-
-  // ── حساب السرعة ──
-  const vMs   = Math.sqrt(2 * muEff * g * d);
-  const vKmh  = vMs * 3.6;
-  const vMph  = vMs * 2.237;
-  const tBrake = vMs / (muEff * g);
-
-  // ── مجال السرعة التقديري عند استخدام تقدير الانحدار ──
-  let rangeText = '';
-  if(gradeIsEstimate && gradeMode !== 'flat'){
-    const lowG  = Math.max(0, (gradePercent - 2) / 100);
-    const highG = (gradePercent + 2) / 100;
-    let muLow, muHigh;
-    if(gradeMode === 'up'){
-      muLow  = selectedMu + lowG;
-      muHigh = selectedMu + highG;
-    } else {
-      muLow  = selectedMu - highG;
-      muHigh = selectedMu - lowG;
-    }
-    muLow  *= (tireFactor[selectedTires] || 1);
-    muHigh *= (tireFactor[selectedTires] || 1);
-    const vLow  = Math.sqrt(2 * Math.max(muLow,  0.01) * g * d) * 3.6;
-    const vHigh = Math.sqrt(2 * Math.max(muHigh, 0.01) * g * d) * 3.6;
-    const r1 = Math.min(vLow, vHigh).toFixed(0);
-    const r2 = Math.max(vLow, vHigh).toFixed(0);
-    rangeText = `نطاق السرعة المتوقع: <strong>${r1} — ${r2} كم/س</strong>`;
-  }
-
-  // ── عرض النتائج ──
-  const res = document.getElementById('results');
+  // إظهار النتائج مع التنشيط الرسومي المتقدم
+  const res=document.getElementById('results');
   res.classList.add('show');
-  setTimeout(() => res.scrollIntoView({behavior:'smooth', block:'start'}), 100);
+  setTimeout(()=>res.scrollIntoView({behavior:'smooth',block:'start'}),100);
 
-  animVal('resKmh',   0, vKmh,   900, 1);
-  animVal('resMs',    0, vMs,    900, 1);
-  animVal('resMph',   0, vMph,   900, 0);
-  animVal('resBrake', 0, tBrake, 900, 1);
-  animVal('resMu',    0, muEff,  900, 2);
+  animVal('resKmh',0,vKmh,900,1);
+  animVal('resMs',0,vMs,900,1);
+  animVal('resMph',0,vMph,900,0);
+  animVal('resBrake',0,tBrake,900,1);
+  animVal('resMu',0,muEff,900,3);
 
-  setTimeout(() => {
-    document.getElementById('gaugeFill').style.width =
-      Math.min((vKmh / 180) * 100, 100) + '%';
-  }, 200);
+  setTimeout(()=>{
+    document.getElementById('gaugeFill').style.width=Math.min((vKmh/180)*100,100)+'%';
+  },200);
 
-  // ── مجال السرعة ──
-  const rangeEl = document.getElementById('speedRange');
-  if(rangeText){ rangeEl.innerHTML = rangeText; rangeEl.style.display = 'block'; }
-  else          { rangeEl.style.display = 'none'; }
+  const rng=document.getElementById('speedRange');
+  if(rangeText){rng.innerHTML=rangeText;rng.style.display='block';}
+  else rng.style.display='none';
 
-  // ── تصنيف السرعة ──
-  const badge = document.getElementById('classBadge');
-  let icon, label, bg, bdr;
-  if(vKmh < 40)       { icon='🟢'; label='سرعة منخفضة';       bg='rgba(76,175,80,0.15)';  bdr='rgba(76,175,80,0.4)'; }
-  else if(vKmh < 70)  { icon='🟡'; label='سرعة معتدلة';        bg='rgba(255,235,59,0.1)';  bdr='rgba(255,235,59,0.4)'; }
-  else if(vKmh < 100) { icon='🟠'; label='سرعة عالية';         bg='rgba(255,152,0,0.12)';  bdr='rgba(255,152,0,0.4)'; }
-  else if(vKmh < 140) { icon='🔴'; label='سرعة مرتفعة جداً';  bg='rgba(244,67,54,0.12)';  bdr='rgba(244,67,54,0.4)'; }
-  else                 { icon='⛔'; label='سرعة خطيرة للغاية'; bg='rgba(183,28,28,0.18)';  bdr='rgba(244,67,54,0.6)'; }
-  badge.style.cssText = `background:${bg};border:1px solid ${bdr};color:#e8eef5;`;
-  badge.innerHTML = `${icon} ${label}`;
+  const badge=document.getElementById('classBadge');
+  let icon,label,bg,bdr;
+  if(vKmh<40)       {icon='🟢';label='سرعة منخفضة';       bg='rgba(76,175,80,0.15)';  bdr='rgba(76,175,80,0.4)';}
+  else if(vKmh<70)  {icon='🟡';label='سرعة معتدلة';        bg='rgba(255,235,59,0.1)';  bdr='rgba(255,235,59,0.4)';}
+  else if(vKmh<100) {icon='🟠';label='سرعة عالية';         bg='rgba(255,152,0,0.12)';  bdr='rgba(255,152,0,0.4)';}
+  else if(vKmh<140) {icon='🔴';label='سرعة مرتفعة جداً';  bg='rgba(244,67,54,0.12)';  bdr='rgba(244,67,54,0.4)';}
+  else              {icon='⛔';label='سرعة خطيرة للغاية'; bg='rgba(183,28,28,0.18)';  bdr='rgba(244,67,54,0.6)';}
+  badge.style.cssText=`background:${bg};border:1px solid ${bdr};color:#e8eef5;`;
+  badge.innerHTML=`${icon} ${label}`;
 
-  // ── شرح المعادلة ──
-  let gradeTxt = '';
-  if(gradeMode === 'up')        gradeTxt = ` + ${gradeDecimal.toFixed(2)}`;
-  else if(gradeMode === 'down') gradeTxt = ` − ${gradeDecimal.toFixed(2)}`;
+  const wMap=getWeightMap();
+  const wTotal=Object.keys(wMap).length;
+  let gradeTxt=gradeMode==='up'?` + ${gradeD.toFixed(2)}`: gradeMode==='down'?` − ${gradeD.toFixed(2)}`:'';
 
-  const markedCount = ['fl','fr','rl','rr'].filter(id => tireMarks[id]).length;
-  document.getElementById('fstep2').innerHTML =
-    `<strong>الاحتكاك المعدَّل:</strong> μ = (${selectedMu}${gradeTxt}) × ${tireFactor.toFixed(2)} (${markedCount} إطار) = <strong>${muEff.toFixed(3)}</strong>`;
+  const vNames={
+    car:'سيارة','car-r':'سيارة دفع خلفي',suv:'SUV رباعي',
+    pickup:'بيك آب',van:'فان',moto:'دراجة نارية',moped:'سكوتر',
+    trike:'ثلاثية',atv:'ATV',bicycle:'دراجة هوائية',
+    truck:'شاحنة صغيرة',bigtruck:'شاحنة كبيرة',bus:'حافلة كبيرة',
+    minibus:'ميني باص',ambulance:'إسعاف',police:'شرطة',taxi:'أجرة',tractor:'جرار'
+  };
 
-  document.getElementById('fstep3').innerHTML =
-    `<strong>الحساب النهائي:</strong> v = √(2 × ${muEff.toFixed(3)} × 9.81 × ${d}) = <strong>${vKmh.toFixed(1)} كم/س</strong>`;
-
-  document.getElementById('formulaHL').textContent =
-    `v = √(2×${muEff.toFixed(3)}×9.81×${d}) = ${vMs.toFixed(2)} م/ث = ${vKmh.toFixed(1)} كم/س`;
+  // تأكيد وتثبيت المسميات الفنية والشرح التفصيلي للنتائج
+  document.getElementById('fs2').innerHTML=
+    `<strong>تعديل الانحدار:</strong> μ_أساسي = ${selectedMu}${gradeTxt} = <strong>${muBase.toFixed(3)}</strong>`;
+  document.getElementById('fs3').innerHTML=
+    `<strong>معامل إطارات (${vNames[vehicleKey]||vehicleKey}):</strong> ${markedKeys.length} إطار من ${wTotal} — معامل الكبح = <strong>${tireFactor.toFixed(3)}</strong>`;
+  document.getElementById('fs4').innerHTML=
+    `<strong>الاحتكاك الفعلي:</strong> μ_فعلي = ${muBase.toFixed(3)} × ${tireFactor.toFixed(3)} = <strong>${muEff.toFixed(3)}</strong>`;
+  document.getElementById('formulaHL').textContent=
+    `v = √(2 × ${muEff.toFixed(3)} × 9.81 × ${d}) = ${vMs.toFixed(2)} م/ث = ${vKmh.toFixed(1)} كم/س`;
 }
 
-// Service Worker
-// تهيئة ملخص الإطارات عند التحميل
-updateTireSummary();
+// ══════════════════════════════════════════════
+//  INIT & SERVICE WORKER AUTOMATIC CACHE BUSTING
+// ══════════════════════════════════════════════
+tireState = { fl:true, fr:true, rl:true, rr:true };
+renderTireMap();
 
 if('serviceWorker' in navigator){
-  const sw = `const C='skid-v2';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});`;
-  const swB = new Blob([sw], {type:'application/javascript'});
-  navigator.serviceWorker.register(URL.createObjectURL(swB)).catch(()=>{});
+  // إضافة دالة مسح ذكية وكسر كلي للتخزين المؤقت لضمان تحديث فوري للمسميات على الهواتف
+  const sw=`const C='skid-cache-v4-' + Date.now();
+  self.addEventListener('install',()=>self.skipWaiting());
+  self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.map(k=>{if(k!==C)return caches.delete(k);})))));
+  self.addEventListener('fetch',e=>e.respondWith(fetch(e.request).catch(()=>caches.match(e.request))));`;
+  navigator.serviceWorker.register(
+    URL.createObjectURL(new Blob([sw],{type:'application/javascript'}))).catch(()=>{});
 }
 </script>
 </body>
